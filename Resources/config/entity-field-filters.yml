@@ -1,0 +1,25 @@
+services:
+
+    mdiyakov_doctrine_solr.filter.field.equal:
+        class: Mdiyakov\DoctrineSolrBundle\Filter\Field\EntityFieldEqualFilter
+        public: false
+        tags:
+           - { name: doctrine_solr.field_filter }
+
+    mdiyakov_doctrine_solr.filter.field.gte:
+        class: Mdiyakov\DoctrineSolrBundle\Filter\Field\EntityFieldGteFilter
+        public: false
+        tags:
+           - { name: doctrine_solr.field_filter }
+
+    mdiyakov_doctrine_solr.filter.field.lte:
+        class: Mdiyakov\DoctrineSolrBundle\Filter\Field\EntityFieldLteFilter
+        public: false
+        tags:
+           - { name: doctrine_solr.field_filter }
+
+    mdiyakov_doctrine_solr.filter.field.regexp:
+        class: Mdiyakov\DoctrineSolrBundle\Filter\Field\EntityFieldRegexpFilter
+        public: false
+        tags:
+           - { name: doctrine_solr.field_filter }

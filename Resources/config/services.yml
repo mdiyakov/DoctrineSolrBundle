@@ -1,0 +1,83 @@
+services:
+
+    mdiyakov_doctrine_solr.config.config:
+        class: Mdiyakov\DoctrineSolrBundle\Config\Config
+        arguments:
+            - []    #see MdiyakovDoctrineSolrExtension for arguments details
+            - []    #see MdiyakovDoctrineSolrExtensionfor arguments details
+            - []    #see MdiyakovDoctrineSolrExtensionfor arguments details
+            - []    #see MdiyakovDoctrineSolrExtensionfor arguments details
+
+    mdiyakov_doctrine_solr.event_listener.doctrine_entity:
+        class: Mdiyakov\DoctrineSolrBundle\EventListener\DoctrineEntityListener
+        arguments:
+            indexProcessManager: "@mdiyakov_doctrine_solr.manager.index_process_manager"
+
+    mdiyakov_doctrine_solr.manager.index_process_manager:
+      class: Mdiyakov\DoctrineSolrBundle\Manager\IndexProcessManager
+      arguments:
+          indexerBuilder: "@mdiyakov_doctrine_solr.indexer.builder"
+          validator: "@mdiyakov_doctrine_solr.filter.validator"
+
+    mdiyakov_doctrine_solr.config.validator:
+        class: Mdiyakov\DoctrineSolrBundle\Config\ConfigValidator
+        public: false
+
+    mdiyakov_doctrine_solr.indexer.builder:
+        class: Mdiyakov\DoctrineSolrBundle\Indexer\IndexerBuilder
+        public: false
+        arguments:
+            config: "@mdiyakov_doctrine_solr.config.config"
+            queryBuilder: "@mdiyakov_doctrine_solr.query.update_builder"
+
+    mdiyakov_doctrine_solr.filter.validator:
+        class: Mdiyakov\DoctrineSolrBundle\Filter\FilterValidator
+        public: false
+        arguments:
+            config: "@mdiyakov_doctrine_solr.config.config"
+
+    mdiyakov_doctrine_solr.command.index_all_command:
+        class: Mdiyakov\DoctrineSolrBundle\Command\IndexEntitiesCommand
+        arguments:
+            config: "@mdiyakov_doctrine_solr.config.config"
+            indexProcessManager: "@mdiyakov_doctrine_solr.manager.index_process_manager"
+            em: "@doctrine.orm.default_entity_manager"
+        tags:
+            - { name: console.command }
+
+    mdiyakov_doctrine_solr.query.hydrator.builder:
+        class: Mdiyakov\DoctrineSolrBundle\Query\Hydrator\HydratorBuilder
+        public: false
+        arguments:
+            em: "@doctrine.orm.default_entity_manager"
+            config: "@mdiyakov_doctrine_solr.config.config"
+
+    mdiyakov_doctrine_solr.query.select_builder:
+        class: Mdiyakov\DoctrineSolrBundle\Query\SelectQueryBuilder
+        arguments:
+            config: "@mdiyakov_doctrine_solr.config.config"
+            clientRegistry: "@solarium.client_registry"
+            hydratorBuilder: "@mdiyakov_doctrine_solr.query.hydrator.builder"
+
+    mdiyakov_doctrine_solr.query.update_builder:
+        class: Mdiyakov\DoctrineSolrBundle\Query\UpdateQueryBuilder
+        arguments:
+            clientRegistry: "@solarium.client_registry"
+
+    mdiyakov_doctrine_solr.query.suggester_builder:
+        class: Mdiyakov\DoctrineSolrBundle\Query\SuggestQueryBuilder
+        arguments:
+            config: "@mdiyakov_doctrine_solr.config.config"
+            clientRegistry: "@solarium.client_registry"
+
+    mdiyakov_doctrine_solr.manager.finder:
+        class: Mdiyakov\DoctrineSolrBundle\Manager\FinderManager
+        arguments:
+            config: "@mdiyakov_doctrine_solr.config.config"
+            queryBuilder: "@mdiyakov_doctrine_solr.query.select_builder"
+
+    mdiyakov_doctrine_solr.manager.suggester:
+        class: Mdiyakov\DoctrineSolrBundle\Manager\SuggesterManager
+        arguments:
+            config: "@mdiyakov_doctrine_solr.config.config"
+            queryBuilder: "@mdiyakov_doctrine_solr.query.suggester_builder"
