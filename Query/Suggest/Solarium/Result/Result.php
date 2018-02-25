@@ -38,15 +38,6 @@ class Result extends BaseResult implements \IteratorAggregate, \Countable
     protected $all;
 
     /**
-     * Collation result
-     *
-     * Only available when collate is enabled in the suggester query
-     *
-     * @var string
-     */
-    protected $collation;
-
-    /**
      * Get Solr status code
      *
      * This is not the HTTP status code! The normal value for success is 0.
@@ -85,18 +76,6 @@ class Result extends BaseResult implements \IteratorAggregate, \Countable
         $this->parseResponse();
 
         return $this->results;
-    }
-
-    /**
-     * Get flat results
-     *
-     * @return array
-     */
-    public function getAll()
-    {
-        $this->parseResponse();
-
-        return $this->all;
     }
 
     /**

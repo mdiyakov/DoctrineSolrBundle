@@ -3,6 +3,7 @@
 namespace Mdiyakov\DoctrineSolrBundle\Query\Suggest;
 
 use Mdiyakov\DoctrineSolrBundle\Exception\SuggestQueryException;
+use Mdiyakov\DoctrineSolrBundle\Query\Hydrator\SuggestQueryHydrator;
 use Mdiyakov\DoctrineSolrBundle\Query\Suggest\Solarium\Query;
 use Mdiyakov\DoctrineSolrBundle\Schema\Schema;
 use Solarium\Client;
@@ -65,8 +66,8 @@ abstract class AbstractSuggestQuery
         if (!$field->getSuggester()) {
             throw new SuggestQueryException(
                 sprintf(
-                    'Class "%s"  does not support a suggestion by field %s',
-                    $this->entityConfig['class'],
+                    'Schema "%s"  does not support a suggestion by field %s',
+                    $this->schema->getName(),
                     $entityFieldName
                 )
             );
@@ -100,7 +101,12 @@ abstract class AbstractSuggestQuery
 
         $solrQuery->setCount($this->getCount());
 
-        return $this->client->execute($solrQuery);
+        /** @var Solarium\Result\Result $result */
+        $result = $this->client->execute($solrQuery);
+
+        $hydrator = new SuggestQueryHydrator($this->schema);
+
+        return $hydrator->hydrate($result);
     }
 
     /**

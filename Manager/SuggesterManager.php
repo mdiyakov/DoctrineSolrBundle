@@ -5,6 +5,7 @@ namespace Mdiyakov\DoctrineSolrBundle\Manager;
 use Mdiyakov\DoctrineSolrBundle\Config\Config;
 use Mdiyakov\DoctrineSolrBundle\Query\SuggestQueryBuilder;
 use Mdiyakov\DoctrineSolrBundle\Suggester\ClassSuggester;
+use Mdiyakov\DoctrineSolrBundle\Suggester\SchemaSuggester;
 
 class SuggesterManager
 {
@@ -12,6 +13,11 @@ class SuggesterManager
      * @var ClassSuggester[]
      */
     private $classSuggesters = [];
+
+    /**
+     * @var SchemaSuggester[]
+     */
+    private $schemaSuggesters = [];
 
     /**
      * @param Config $config
@@ -29,15 +35,15 @@ class SuggesterManager
                     $queryBuilder->buildClassSuggestQuery($entityClass)
                 );
             }
-/*
+
             $entitySchemaName = $entityConfig['schema'];
-            if (!array_key_exists($entitySchemaName, $this->schemaFinders)) {
-                $this->schemaFinders[$entitySchemaName] = new SchemaFinder(
-                    $queryBuilder,
-                    $config->getSchemaByEntityClass($entityClass),
-                    $config
+            if (!array_key_exists($entitySchemaName, $this->schemaSuggesters)) {
+                $this->schemaSuggesters[$entitySchemaName] = new SchemaSuggester(
+                    $queryBuilder->buildSchemaSuggestQuery(
+                        $config->getSchemaByEntityClass($entityConfig['class'])
+                    )
                 );
-            }*/
+            }
         }
     }
 
@@ -55,5 +61,22 @@ class SuggesterManager
         }
 
         return $this->classSuggesters[$class];
+    }
+
+
+    /**
+     * @param string $schema
+     * @return SchemaSuggester
+     * @throws \InvalidArgumentException
+     */
+    public function getSchemaSuggester($schema)
+    {
+        if (!array_key_exists($schema, $this->schemaSuggesters)) {
+            throw new \InvalidArgumentException(
+                sprintf('Schema suggester %s is not found', $schema)
+            );
+        }
+
+        return $this->schemaSuggesters[$schema];
     }
 }

@@ -3,6 +3,7 @@
 namespace Mdiyakov\DoctrineSolrBundle\Suggester;
 
 use Mdiyakov\DoctrineSolrBundle\Query\Suggest\AbstractSuggestQuery;
+use Mdiyakov\DoctrineSolrBundle\Query\Suggest\Result\Result;
 
 abstract class AbstractSuggester
 {
@@ -17,7 +18,7 @@ abstract class AbstractSuggester
      * @param string $searchTerm
      * @param string[] $fields
      * @param int $limit
-     * @return \Solarium\Core\Query\Result\ResultInterface
+     * @return Result
      */
     public function suggestByFields($searchTerm, $fields, $limit = 10)
     {

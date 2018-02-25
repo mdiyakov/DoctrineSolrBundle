@@ -103,7 +103,7 @@ class SelectQueryBuilder
             }
 
             $multiClassQueryConfig['entityConfigs'][] = $entityConfig;
-            $multiClassQueryConfig['hydrators'][$entityConfig[$discriminatorConfigField->getConfigFieldName()]] = $this->hydrators[$class];
+            $multiClassQueryConfig['hydrators'][$discriminatorConfigField->getValue($entityConfig)] = $this->hydrators[$class];
         }
 
         return new MultiClassSelectQuery(

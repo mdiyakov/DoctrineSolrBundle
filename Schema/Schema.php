@@ -46,6 +46,11 @@ class Schema
     private $client;
 
     /**
+     * @var Field[]
+     */
+    private $suggesterFieldMap = [];
+
+    /**
      * @param string $name
      * @param string $client
      * @param string[] $documentUniqueFieldConfig
@@ -69,6 +74,10 @@ class Schema
                     $fieldConfig['suggester']
                 );
                 $this->fields[$field->getEntityFieldName()] = $field;
+
+                if (!empty($fieldConfig['suggester'])) {
+                    $this->suggesterFieldMap[$fieldConfig['suggester']] = $field;
+                }
             } else {
                 throw new \Exception(
                     sprintf('The index type %s is not implemented yet', $fieldConfig['index_type'])
@@ -195,5 +204,20 @@ class Schema
         }
 
         return $this->configEntityFields[$configFieldName];
+    }
+
+    /**
+     * @param string $suggester
+     * @return Field
+     */
+    public function getFieldBySuggester($suggester)
+    {
+        if (!array_key_exists($suggester, $this->suggesterFieldMap)) {
+            throw new SchemaConfigException(
+                sprintf('Schema %s does not support suggestion "%s"', $this->getName(), $suggester)
+            );
+        }
+
+        return $this->suggesterFieldMap[$suggester];
     }
 }
