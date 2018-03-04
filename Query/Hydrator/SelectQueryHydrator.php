@@ -56,9 +56,9 @@ class SelectQueryHydrator
         $primaryKeyValues = [];
         $orderValue = count($documentsArray);
         foreach($documentsArray as $documentRow) {
-            if (!array_key_exists($discriminatorField->getConfigFieldName(), $documentRow)) {
+            if (!array_key_exists($discriminatorField->getDocumentFieldName(), $documentRow)) {
                 throw new DiscriminatorFieldException(
-                    sprintf('Discriminator field "%s" must be presented in dataset', $discriminatorField->getConfigFieldName())
+                    sprintf('Discriminator field "%s" must be presented in dataset', $discriminatorField->getDocumentFieldName())
                 );
             }
 
