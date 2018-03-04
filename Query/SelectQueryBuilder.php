@@ -59,7 +59,9 @@ class SelectQueryBuilder
         $schema = $this->config->getSchemaByEntityClass($class);
 
         return new ClassSelectQuery(
-            $this->clientRegistry->getClient($schema->getClient()),
+            $this->clientRegistry->getClient(
+                $this->config->getSolariumClient($schema->getClient())
+            ),
             $schema,
             $entityConfig,
             $this->hydrators[$class]
@@ -108,7 +110,9 @@ class SelectQueryBuilder
 
         return new MultiClassSelectQuery(
             $schema,
-            $this->clientRegistry->getClient($schema->getClient()),
+            $this->clientRegistry->getClient(
+                $this->config->getSolariumClient($schema->getClient())
+            ),
             $multiClassQueryConfig['entityConfigs'],
             $multiClassQueryConfig['hydrators']
         );

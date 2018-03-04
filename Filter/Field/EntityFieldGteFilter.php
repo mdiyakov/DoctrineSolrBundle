@@ -1,22 +1,17 @@
 <?php
 
-
 namespace Mdiyakov\DoctrineSolrBundle\Filter\Field;
-
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class EntityFieldGteFilter extends EntityFieldFilter
 {
 
     /**
-     * @param mixed $entity
+     * @param mixed $value
      * @return bool
      */
-    public function isFilterValid($entity)
+    protected function validate($value)
     {
-        $entityFieldValue = PropertyAccess::createPropertyAccessor()->getValue($entity, $this->getEntityFieldName());
-
-        return $entityFieldValue >= $this->getEntityFieldValue();
+        return $value >= $this->getEntityFieldValue();
     }
 
     /**

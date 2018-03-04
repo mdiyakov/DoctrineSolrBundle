@@ -22,13 +22,15 @@ class MdiyakovDoctrineSolrExtension extends Extension
         $loader->load('services.yml');
         $loader->load('entity-field-filters.yml');
 
-        $configDefinition = $container->getDefinition('mdiyakov_doctrine_solr.config.config');
-        $configDefinition->replaceArgument(0, $config['indexed_entities']);
-        $configDefinition->replaceArgument(1, $config['schemes']);
-        $configDefinition->replaceArgument(2, $config['filters']);
-        $configDefinition->replaceArgument(3, $config['solarium_clients']);
+        if (!empty($config['indexed_entities'])) {
+            $configDefinition = $container->getDefinition('mdiyakov_doctrine_solr.config.config');
+            $configDefinition->replaceArgument(0, $config['indexed_entities']);
+            $configDefinition->replaceArgument(1, $config['schemes']);
+            $configDefinition->replaceArgument(2, $config['filters']);
+            $configDefinition->replaceArgument(3, $config['solarium_clients']);
 
-        $this->initializeDoctrineEntityListener($container, $config);
+            $this->initializeDoctrineEntityListener($container, $config);
+        }
     }
 
     /**

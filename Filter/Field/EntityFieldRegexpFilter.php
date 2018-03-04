@@ -2,20 +2,16 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Filter\Field;
 
-use Symfony\Component\PropertyAccess\PropertyAccess;
-
 class EntityFieldRegexpFilter extends EntityFieldFilter
 {
 
     /**
-     * @param mixed $entity
+     * @param mixed $value
      * @return bool
      */
-    public function isFilterValid($entity)
+    public function validate($value)
     {
-        $entityFieldValue = PropertyAccess::createPropertyAccessor()->getValue($entity, $this->getEntityFieldName());
-
-        return (bool) preg_match($this->getEntityFieldValue(), $entityFieldValue);
+        return (bool) preg_match($this->getEntityFieldValue(), $value);
     }
 
     /**

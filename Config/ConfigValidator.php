@@ -23,7 +23,7 @@ class ConfigValidator
     {
         if (!array_key_exists($entityConfig['schema'], $schemes)) {
             throw new SchemaNotFoundException(
-                sprintf('Schema %s is not found in "schema" section', $entityConfig['schema'])
+                sprintf('Schema "%s" is not found in "schema" config section. Check config.yml', $entityConfig['schema'])
             );
         }
 
@@ -42,21 +42,8 @@ class ConfigValidator
      */
     private function checkEntityContainRequiredFields($entityClass, $schemaConfig)
     {
-        $reflection = new \ReflectionClass($entityClass);
         foreach ($schemaConfig['fields'] as $fieldConfig) {
-            $methodName = 'get' . ucfirst($fieldConfig['entity_field_name']);
-            if (!$reflection->hasMethod($methodName)) {
-                throw new RequiredFieldException(
-                    sprintf('Mandatory field %s is not found in %s', $fieldConfig['entity_field_name'], $entityClass)
-                );
-            }
-
-            $reflectionMethod = new \ReflectionMethod($entityClass, $methodName);
-            if (!$reflectionMethod->isPublic()) {
-                throw new RequiredFieldException(
-                    sprintf('Mandatory field getter method %s is not public in %s', $fieldConfig['entity_field_name'], $entityClass)
-                );
-            }
+            $this->checkEntityHasField($entityClass, $fieldConfig['entity_field_name']);
         }
     }
 
@@ -105,7 +92,7 @@ class ConfigValidator
     {
         if (!array_key_exists($schemaConfig['client'], $clients)) {
             throw new ClientConfigException(
-                sprintf('Solarium client %s is not defined in "solarium_clients" section', $schemaConfig['client'])
+                sprintf('Solarium client "%s" is not defined in "solarium_clients" section', $schemaConfig['client'])
             );
         }
     }
@@ -133,6 +120,18 @@ class ConfigValidator
                     );
                 }
             }
+
+            if (array_key_exists('fields', $filters) && is_array($filters['fields'])) {
+                foreach ($filters['fields'] as $filterName => $filterConfig) {
+                    try {
+                        $this->checkEntityHasField($entityConfig['class'], $filterConfig['entity_field_name']);
+                    } catch (RequiredFieldException $e) {
+                        $message = $e->getMessage() . ' Error occurred for "filters" section. Please check the filters configuration in config.yml';
+                        throw new RequiredFieldException($message);
+                    }
+
+                }
+            }
         }
     }
 
@@ -155,6 +154,30 @@ class ConfigValidator
                 }
                 $documentFieldsNames[$documentFieldName] = true;
             }
+        }
+    }
+
+    /**
+     * @param string $entityClass
+     * @param string $entityFieldName
+     * @throws RequiredFieldException
+     */
+    private function checkEntityHasField($entityClass, $entityFieldName)
+    {
+        $reflection = new \ReflectionClass($entityClass);
+        $methodName = 'get' . ucfirst($entityFieldName);
+
+        if (!$reflection->hasMethod($methodName)) {
+            throw new RequiredFieldException(
+                sprintf('Mandatory field getter method "%s" is not found in %s.', $methodName, $entityClass)
+            );
+        }
+
+        $reflectionMethod = new \ReflectionMethod($entityClass, $methodName);
+        if (!$reflectionMethod->isPublic()) {
+            throw new RequiredFieldException(
+                sprintf('Mandatory field getter method "%s" is not public in "%s".', $methodName, $entityClass)
+            );
         }
     }
 }

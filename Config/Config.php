@@ -38,6 +38,11 @@ class Config
     private $entitiesConfigMap = [];
 
     /**
+     * @var \string[]
+     */
+    private $solariumClients;
+
+    /**
      * @param string[][] $indexedEntities
      * @param string[][] $schemes
      * @param string[][] $filters
@@ -69,6 +74,7 @@ class Config
 
         $this->filters = $filters;
         $this->indexedEntities = $indexedEntities;
+        $this->solariumClients = $solariumClients;
     }
 
     /**
@@ -125,5 +131,14 @@ class Config
     public function getFilters()
     {
         return $this->filters;
+    }
+
+    /**
+     * @param string $clientName
+     * @return null|string
+     */
+    public function getSolariumClient($clientName)
+    {
+        return  (array_key_exists($clientName, $this->solariumClients)) ? $this->solariumClients[$clientName] : null;
     }
 }

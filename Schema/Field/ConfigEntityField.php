@@ -2,8 +2,14 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Schema\Field;
 
-class ConfigEntityField
+class ConfigEntityField implements DocumentFieldInterface
 {
+
+    /**
+     * @var int
+     */
+    private $priority;
+
     /**
      * @var string
      */
@@ -23,12 +29,14 @@ class ConfigEntityField
      * @param string $configFieldName
      * @param string $documentFieldName
      * @param bool $discriminator
+     * @param int $priority
      */
-    public function __construct($configFieldName, $documentFieldName, $discriminator)
+    public function __construct($configFieldName, $documentFieldName, $discriminator, $priority)
     {
         $this->configFieldName = $configFieldName;
         $this->documentFieldName = $documentFieldName;
         $this->discriminator = $discriminator;
+        $this->priority = $priority;
     }
 
     /**
@@ -70,5 +78,13 @@ class ConfigEntityField
     public function isDiscriminator()
     {
         return $this->discriminator;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriority()
+    {
+        return $this->priority;
     }
 }

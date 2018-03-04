@@ -121,14 +121,14 @@ class FilterValidator
      */
     private function initFilters($filtersConfig)
     {
-        if (is_array($filtersConfig['fields'])) {
+        if (array_key_exists('fields', $filtersConfig) && is_array($filtersConfig['fields'])) {
             foreach($filtersConfig['fields'] as $filterName => $filterConfig) {
                 $filterOperator = $filterConfig['operator'];
                 $this->operatorFieldFilterConfigMap[$filterOperator][$filterName] = $filterConfig;
             }
         }
 
-        if (is_array($filtersConfig['services'])) {
+        if (array_key_exists('services', $filtersConfig) && is_array($filtersConfig['services'])) {
             foreach($filtersConfig['services'] as $filterName => $filterConfig) {
                 $serviceId = $filterConfig['service'];
                 $this->serviceFilterConfigMap[$serviceId][$filterName] = $filterConfig;

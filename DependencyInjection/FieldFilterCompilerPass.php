@@ -39,7 +39,7 @@ class FieldFilterCompilerPass implements CompilerPassInterface
         foreach ($taggedFilterServices as $id => $tags) {
             $definition->addMethodCall(
                 'addServiceEntityFilter',
-                [new Reference($id)]
+                [$id, new Reference($id)]
             );
         }
     }

@@ -62,6 +62,7 @@ services:
     mdiyakov_doctrine_solr.query.update_builder:
         class: Mdiyakov\DoctrineSolrBundle\Query\UpdateQueryBuilder
         arguments:
+            config: "@mdiyakov_doctrine_solr.config.config"
             clientRegistry: "@solarium.client_registry"
 
     mdiyakov_doctrine_solr.query.suggester_builder:

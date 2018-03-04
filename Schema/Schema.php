@@ -5,8 +5,8 @@ namespace Mdiyakov\DoctrineSolrBundle\Schema;
 use Mdiyakov\DoctrineSolrBundle\Exception\SchemaConfigException;
 use Mdiyakov\DoctrineSolrBundle\Schema\Field\ConfigEntityField;
 use Mdiyakov\DoctrineSolrBundle\Schema\Field\DocumentUniqueField;
-use Mdiyakov\DoctrineSolrBundle\Schema\Field\Field;
-use Mdiyakov\DoctrineSolrBundle\Schema\Field\StringField;
+use Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\Field;
+use Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\FieldFactory;
 
 class Schema
 {
@@ -63,25 +63,13 @@ class Schema
         $this->name = $name;
         $this->client = $client;
         $this->documentUniqueField = new DocumentUniqueField($documentUniqueFieldConfig, $this);
-        foreach ($fieldsConfig as $fieldConfig) {
-            /** todo implement something not so hardcoded */
-            if ($fieldConfig['index_type'] == 'string') {
-                $field = new StringField(
-                    $fieldConfig['entity_field_name'],
-                    $fieldConfig['document_field_name'],
-                    $fieldConfig['entity_primary_key'],
-                    $fieldConfig['priority'],
-                    $fieldConfig['suggester']
-                );
-                $this->fields[$field->getEntityFieldName()] = $field;
+        $fieldFactory = new FieldFactory();
 
-                if (!empty($fieldConfig['suggester'])) {
-                    $this->suggesterFieldMap[$fieldConfig['suggester']] = $field;
-                }
-            } else {
-                throw new \Exception(
-                    sprintf('The index type %s is not implemented yet', $fieldConfig['index_type'])
-                );
+        foreach ($fieldsConfig as $fieldConfig) {
+            $field = $fieldFactory->buildField($fieldConfig);
+            $this->fields[$field->getEntityFieldName()] = $field;
+            if ($field->getSuggester()) {
+                $this->suggesterFieldMap[$field->getSuggester()] = $field;
             }
 
             if ($field->isPrimaryKey()) {
@@ -100,7 +88,8 @@ class Schema
             $configField = new ConfigEntityField(
                 $configField['config_field_name'],
                 $configField['document_field_name'],
-                $configField['discriminator']
+                $configField['discriminator'],
+                $configField['priority']
             );
             $this->configEntityFields[$configField->getConfigFieldName()] = $configField;
 
@@ -114,7 +103,7 @@ class Schema
 
         if (!$this->getDiscriminatorConfigField()) {
             throw new SchemaConfigException(
-                'You have to define one config field with flag "discriminator" having true value'
+                'You have to define one config field in schema with flag "discriminator" having true value'
             );
         }
     }

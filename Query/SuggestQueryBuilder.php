@@ -46,7 +46,9 @@ class SuggestQueryBuilder
         $schema = $this->config->getSchemaByEntityClass($class);
 
         return new ClassSuggestQuery(
-            $this->clientRegistry->getClient($schema->getClient()),
+            $this->clientRegistry->getClient(
+                $this->config->getSolariumClient($schema->getClient())
+            ),
             $schema,
             $entityConfig
         );
@@ -59,7 +61,9 @@ class SuggestQueryBuilder
     public function buildSchemaSuggestQuery(Schema $schema)
     {
         return new SchemaSuggestQuery(
-            $this->clientRegistry->getClient($schema->getClient()),
+            $this->clientRegistry->getClient(
+                $this->config->getSolariumClient($schema->getClient())
+            ),
             $schema
         );
     }

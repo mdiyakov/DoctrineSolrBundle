@@ -42,7 +42,7 @@ class FieldResult
      */
     public function getSuggestions()
     {
-        return $this->suggestions;
+        return $this->suggestions ? $this->suggestions : [];
     }
 
     /**

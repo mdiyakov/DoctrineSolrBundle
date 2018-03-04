@@ -73,7 +73,11 @@ class SuggesterManager
     {
         if (!array_key_exists($schema, $this->schemaSuggesters)) {
             throw new \InvalidArgumentException(
-                sprintf('Schema suggester %s is not found', $schema)
+                sprintf(
+                    '"%s" schema is not found. You have the following schemas: "%s"',
+                    $schema,
+                    join('","', array_keys($this->schemaSuggesters))
+                )
             );
         }
 

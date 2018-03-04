@@ -7,7 +7,7 @@ use Mdiyakov\DoctrineSolrBundle\Query\Select\MultiClassSelectQuery;
 use Mdiyakov\DoctrineSolrBundle\Query\SelectQueryBuilder;
 use Mdiyakov\DoctrineSolrBundle\Schema\Schema;
 
-final class SchemaFinder extends AbstractFinder
+class SchemaFinder extends AbstractFinder
 {
     /**
      * @var SelectQueryBuilder
