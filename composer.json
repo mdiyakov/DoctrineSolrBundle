@@ -13,7 +13,7 @@
     }
   ],
   "support": {
-    "email": "m.djakov@gmail.com",
+    "email": "m.djakov@gmail.com"
   },
   "require": {
     "php": "^5.5",
