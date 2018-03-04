@@ -63,7 +63,7 @@ class IndexEntitiesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('mdiyakov:doctrine-solr:index')
+            ->setName('doctrine-solr:index')
             ->addArgument(
                 'entity-type',
                 InputArgument::OPTIONAL,

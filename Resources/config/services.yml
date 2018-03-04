@@ -82,3 +82,9 @@ services:
         arguments:
             config: "@mdiyakov_doctrine_solr.config.config"
             queryBuilder: "@mdiyakov_doctrine_solr.query.suggester_builder"
+
+    ds.suggester:
+        alias: mdiyakov_doctrine_solr.manager.suggester
+
+    ds.finder:
+        alias: mdiyakov_doctrine_solr.manager.finder
