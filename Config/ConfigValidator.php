@@ -165,18 +165,39 @@ class ConfigValidator
     private function checkEntityHasField($entityClass, $entityFieldName)
     {
         $reflection = new \ReflectionClass($entityClass);
-        $methodName = 'get' . ucfirst($entityFieldName);
+        $getterMethodName = 'get' . ucfirst($entityFieldName);
+        $isserMethodName = 'is' . ucfirst($entityFieldName);
 
-        if (!$reflection->hasMethod($methodName)) {
+        if ($reflection->hasMethod($getterMethodName)) {
+            $getterReflectionMethod = new \ReflectionMethod($entityClass, $getterMethodName);
+            if (!$getterReflectionMethod->isPublic()) {
+                throw new RequiredFieldException(
+                    sprintf(
+                        'Getter method "%s" is not public in "%s".',
+                        $getterMethodName,
+                        $entityClass
+                    )
+                );
+            }
+        } elseif ($reflection->hasMethod($isserMethodName)) {
+            $isserReflectionMethod = new \ReflectionMethod($entityClass, $isserMethodName);
+            if (!$isserReflectionMethod->isPublic()) {
+                throw new RequiredFieldException(
+                    sprintf(
+                        'Isser method "%s" is not public in "%s".',
+                        $isserMethodName,
+                        $entityClass
+                    )
+                );
+            }
+        } else {
             throw new RequiredFieldException(
-                sprintf('Mandatory field getter method "%s" is not found in %s.', $methodName, $entityClass)
-            );
-        }
-
-        $reflectionMethod = new \ReflectionMethod($entityClass, $methodName);
-        if (!$reflectionMethod->isPublic()) {
-            throw new RequiredFieldException(
-                sprintf('Mandatory field getter method "%s" is not public in "%s".', $methodName, $entityClass)
+                 sprintf(
+                    'Either getter method "%s" or isser method "%s" is not found in %s.',
+                    $getterMethodName,
+                    $isserMethodName,
+                    $entityClass
+                )
             );
         }
     }

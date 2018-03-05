@@ -2,6 +2,7 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity;
 
+use Mdiyakov\DoctrineSolrBundle\Exception\InvalidFieldValueException;
 use Mdiyakov\DoctrineSolrBundle\Schema\Field\DocumentFieldInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -95,9 +96,14 @@ abstract class Field implements DocumentFieldInterface
     /**
      * @param object $entity
      * @return mixed
+     * @throws InvalidFieldValueException
      */
     public function getEntityFieldValue($entity)
     {
+        if (!is_object($entity)) {
+            throw new InvalidFieldValueException('Argument must be an object');
+        }
+
         return PropertyAccess::createPropertyAccessor()->getValue($entity, $this->getEntityFieldName());
     }
 

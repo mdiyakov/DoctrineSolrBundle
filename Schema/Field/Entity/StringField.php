@@ -14,7 +14,7 @@ class StringField extends Field
         $documentValue = '';
         if (is_scalar($entityValue)) {
             $documentValue = $entityValue;
-        } elseif (is_array($entityValue) || $entityValue instanceof \ArrayAccess) {
+        } elseif (is_array($entityValue) || $entityValue instanceof \Iterator || $entityValue instanceof \IteratorAggregate) {
             $documentValue = [];
             foreach ($entityValue as $value) {
                 $documentValue[] = (string) $value;

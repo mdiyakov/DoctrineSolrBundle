@@ -17,6 +17,7 @@
   },
   "require": {
     "php": "^5.5",
+    "symfony/property-access": "^2.2",
     "symfony/console": "~2.0",
     "doctrine/orm": "^2.4.8",
     "solarium/solarium": "^3.6",

@@ -1,17 +1,15 @@
 <?php
 
-
 namespace Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity;
 
-
-class IntField extends Field
+class IntField extends NumericField
 {
     /**
-     * @param object $entity
-     * @return float
+     * @param $value
+     * @return int
      */
-    public function getDocumentFieldValue($entity)
+    public function castValue($value)
     {
-        return intval($this->getEntityFieldValue($entity));
+        return intval($value);
     }
 }

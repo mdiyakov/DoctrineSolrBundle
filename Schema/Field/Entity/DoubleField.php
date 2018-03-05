@@ -2,14 +2,14 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity;
 
-class DoubleField extends Field
+class DoubleField extends NumericField
 {
     /**
-     * @param object $entity
+     * @param mixed $value
      * @return float
      */
-    public function getDocumentFieldValue($entity)
+    protected function castValue($value)
     {
-        return doubleval($this->getEntityFieldValue($entity));
+        return doubleval($value);
     }
 }

@@ -21,7 +21,7 @@ class FieldFactory
     {
         if (!array_key_exists($fieldConfig['field_type'], $this->map)) {
             throw new \Exception(
-                sprintf('The index field type %s is not implemented yet', $fieldConfig['field_type'])
+                sprintf('The index field type "%s" is not implemented yet', $fieldConfig['field_type'])
             );
         }
 
