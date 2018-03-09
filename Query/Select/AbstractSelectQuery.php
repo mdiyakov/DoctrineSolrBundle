@@ -55,6 +55,11 @@ abstract class AbstractSelectQuery
     private $solrQuery;
 
     /**
+     * @var bool
+     */
+    private $isPhrase = false;
+
+    /**
      * @var string[]
      */
     protected $discriminatorConditions = [];
@@ -92,6 +97,13 @@ abstract class AbstractSelectQuery
             )
             ->setRows($this->getLimit())
             ->setStart($this->getOffset());
+
+        if ($this->isPhrase) {
+            $query->setQuery(
+                $query->getHelper()->qparser('complexphrase') .
+                $query->getQuery()
+            );
+        }
 
         /** @var Result $response */
         $response = $this->getClient()->execute($query);
@@ -381,6 +393,7 @@ abstract class AbstractSelectQuery
      */
     public function reset()
     {
+        $this->isPhrase = false;
         $this->addAndCondition = [];
         $this->addOrCondition = [];
         $this->offset = 0;
@@ -460,11 +473,12 @@ abstract class AbstractSelectQuery
     private function buildFieldCondition(DocumentFieldInterface $field, $searchTerm, $wildcard, $isNegative)
     {
         $fieldPartFormat = '%s:';
-        $valuePartFormat = '';
-        if (!$wildcard) {
-            $valuePartFormat .= '"%s"';
-        } else {
-            $valuePartFormat .= '%s';
+        $valuePartFormat = '"%s"';
+        $isPhrase = (strpos($searchTerm, ' ') > 0);
+        $this->isPhrase = $isPhrase ?: $this->isPhrase;
+
+        if ($wildcard && !$isPhrase) {
+            $valuePartFormat = '%s';
         }
 
         if ($field->getPriority()) {
@@ -526,16 +540,27 @@ abstract class AbstractSelectQuery
     private function buildFuzzyCondition(DocumentFieldInterface $field, $searchTerm, $isNegative, $distance)
     {
         $fieldPartFormat = '%s:';
-        $valuePartFormat = '%s~%u';
-        $condition = $fieldPartFormat . $valuePartFormat;
+        if (strpos($searchTerm, ' ') > 0) {
+            $parts = explode(' ', $searchTerm);
+            $formattedParts = [];
+            foreach ($parts as $part)  {
+                $formattedParts[] = sprintf('%s~%u', $part, $distance);
+            }
+            $valuePartFormat = '"%s"';
+            $this->isPhrase = true;
+            $searchTerm = join(' ', $formattedParts);
+        } else {
+            $valuePartFormat = '%s';
+            $searchTerm = sprintf('%s~%u', $searchTerm, $distance);
+        }
 
+        $condition = $fieldPartFormat . $valuePartFormat;
         $condition = $isNegative ?  $this->buildNegativeCondition($condition) : $condition;
 
         return sprintf(
             $condition,
             $field->getDocumentFieldName(),
-            $searchTerm,
-            $distance
+            $searchTerm
         );
     }
 
@@ -632,7 +657,7 @@ abstract class AbstractSelectQuery
             $escapedSpecialSymbols = ['\*','\?'];
         }
 
-        $searchTerm = preg_replace('/[^a-zA-Z0-9-_=+.?*!:)(\]\[ ]/', '', $searchTerm);
+        $searchTerm = preg_replace('/[^a-zA-Z\s0-9-_=+.?*!:)(\]\[ ]/', '', $searchTerm);
 
         return str_replace($specialSymbols, $escapedSpecialSymbols, $searchTerm);
     }
