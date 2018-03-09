@@ -90,7 +90,7 @@ class ConfigValidator
      */
     private function checkClients($schemaConfig, $clients)
     {
-        if (!array_key_exists($schemaConfig['client'], $clients)) {
+        if (!empty($schemaConfig['client']) && !array_key_exists($schemaConfig['client'], $clients)) {
             throw new ClientConfigException(
                 sprintf('Solarium client "%s" is not defined in "solarium_clients" section', $schemaConfig['client'])
             );

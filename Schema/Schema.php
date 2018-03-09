@@ -173,7 +173,7 @@ class Schema
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getClient()
     {
