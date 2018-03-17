@@ -11,6 +11,10 @@ use Mdiyakov\DoctrineSolrBundle\Exception\SchemaNotFoundException;
 
 class ConfigValidator
 {
+    /**
+     * @var array
+     */
+    private $discriminatorValues = [];
 
     /**
      * @param string[][] $entityConfig
@@ -67,7 +71,7 @@ class ConfigValidator
         }
         $configFieldsNames = [];
         foreach ($configFields as $configField) {
-            $configFieldsNames[$configField['name']] = true;
+            $configFieldsNames[$configField['name']] = $configField['value'];
         }
 
         foreach ($schemaConfigEntityFields as $fieldConfig) {
@@ -79,6 +83,20 @@ class ConfigValidator
                         $entityConfig['class']
                     )
                 );
+            }
+
+            if ($fieldConfig['discriminator'] === true) {
+                $discriminatorValue = $configFieldsNames[$fieldConfig['config_field_name']];
+                if (in_array($discriminatorValue, $this->discriminatorValues)) {
+                    throw new ConfigFieldException(
+                        sprintf(
+                            '"%s" discriminator value has already beed used.
+                            It seems there are two entity classes inside "indexed_entities" with identical discriminator config field value',
+                            $discriminatorValue
+                        )
+                    );
+                }
+                $this->discriminatorValues[] =  $discriminatorValue;
             }
         }
     }
