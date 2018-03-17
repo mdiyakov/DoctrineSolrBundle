@@ -73,6 +73,8 @@ class SelectQueryBuilder
      * @param string $schemaName
      * @param string[] $classes
      * @return MultiClassSelectQuery
+     * @throws \InvalidArgumentException
+     * @throws SchemaNotFoundException
      */
     public function buildMultiClassSelectQueryBySchemaName($schemaName, $classes)
     {

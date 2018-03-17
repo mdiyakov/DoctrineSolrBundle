@@ -2,6 +2,7 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Query;
 
+use Mdiyakov\DoctrineSolrBundle\Exception\SchemaNotFoundException;
 use Mdiyakov\DoctrineSolrBundle\Query\Suggest\ClassSuggestQuery;
 use Mdiyakov\DoctrineSolrBundle\Query\Suggest\SchemaSuggestQuery;
 use Mdiyakov\DoctrineSolrBundle\Schema\Schema;
@@ -52,6 +53,28 @@ class SuggestQueryBuilder
             $schema,
             $entityConfig
         );
+    }
+
+    /**
+     * @param string $schemaName
+     * @return SchemaSuggestQuery
+     * @throws \InvalidArgumentException
+     * @throws SchemaNotFoundException
+     */
+    public function buildSchemaSuggestQueryBySchemaName($schemaName)
+    {
+        if (!is_string($schemaName)) {
+            throw new \InvalidArgumentException('Argument $schemaName must be a string');
+        }
+
+        $schema = $this->config->getSchemaByName($schemaName);
+        if (!$schema) {
+            throw new SchemaNotFoundException(
+                sprintf('Schema "%s" is not found', $schemaName)
+            );
+        }
+
+        return $this->buildSchemaSuggestQuery($schema);
     }
 
     /**
