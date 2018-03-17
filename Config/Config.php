@@ -90,6 +90,20 @@ class Config
         return null;
     }
 
+
+    /**
+     * @param string $schemaName
+     * @return Schema|null
+     */
+    public function getSchemaByName($schemaName)
+    {
+        if (array_key_exists($schemaName, $this->schemes)) {
+            return $this->schemes[$schemaName];
+        }
+
+        return null;
+    }
+
     /**
      * @param string $class
      * @return string|null

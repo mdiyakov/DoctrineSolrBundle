@@ -6,7 +6,7 @@ interface EntityFilterInterface
 {
 
     /**
-     * @param mixed $entity
+     * @param object $entity
      * @return bool
      */
     public function isFilterValid($entity);

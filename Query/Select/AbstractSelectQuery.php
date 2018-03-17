@@ -155,8 +155,8 @@ abstract class AbstractSelectQuery
      */
     public function addAllFieldOrWhere($searchTerm, $isNegative = false, $wildcard = false)
     {
+        $this->reset();
         $searchTerm = $this->prepareSearchTerm($searchTerm, $wildcard);
-        $this->addOrCondition = [];
         $fields = $this->getSchema()->getFields();
         foreach ($fields as $field) {
             $this->addOrCondition($field, $searchTerm, $wildcard, $isNegative);

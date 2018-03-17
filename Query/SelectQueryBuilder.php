@@ -2,6 +2,7 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Query;
 
+use Mdiyakov\DoctrineSolrBundle\Exception\SchemaNotFoundException;
 use Mdiyakov\DoctrineSolrBundle\Query\Select\ClassSelectQuery;
 use Mdiyakov\DoctrineSolrBundle\Query\Select\MultiClassSelectQuery;
 use Nelmio\SolariumBundle\ClientRegistry;
@@ -15,7 +16,7 @@ use Mdiyakov\DoctrineSolrBundle\Schema\Schema;
 class SelectQueryBuilder
 {
     /**
-     * @var
+     * @var Config
      */
     private $config;
 
@@ -66,6 +67,27 @@ class SelectQueryBuilder
             $entityConfig,
             $this->hydrators[$class]
         );
+    }
+
+    /**
+     * @param string $schemaName
+     * @param string[] $classes
+     * @return MultiClassSelectQuery
+     */
+    public function buildMultiClassSelectQueryBySchemaName($schemaName, $classes)
+    {
+        if (!is_string($schemaName)) {
+            throw new \InvalidArgumentException('Argument $schemaName must be a string');
+        }
+
+        $schema = $this->config->getSchemaByName($schemaName);
+        if (!$schema) {
+            throw new SchemaNotFoundException(
+                sprintf('Schema "%s" is not found', $schemaName)
+            );
+        }
+
+        return $this->buildMultiClassSelectQuery($schema, $classes);
     }
 
 
