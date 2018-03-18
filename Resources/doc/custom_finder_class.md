@@ -35,7 +35,7 @@ PageFinder must extend the "Mdiyakov\DoctrineSolrBundle\Finder\ClassFinder". You
 So PageFinder can be a collection of entity-specific searching methods like Doctrine repo. 
 
 ## Pages
-* [Getting started with DoctrineSolrBundle] (getting_started.md)
+* [Getting started with DoctrineSolrBundle](getting_started.md)
 * [ Regular, fuzzy, wildcard, range and negative search](fuzzy_wildcard_range_negative_search.md) 
 * [ Filters ](filters.md)
 * [Schema search over multiple entities classes](schema_search.md)
