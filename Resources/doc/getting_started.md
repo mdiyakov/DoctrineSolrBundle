@@ -18,10 +18,13 @@ Here we'll take a look on each configuration section closer.
 
 ### Content
 
-[Indexed entities section](#indexed-entities-section)
-[ Schemes section ](#schemes-section)
-[Filters section] (#filters-section)
-[Solarium clients section] (#solarium-clients-section)
+1.[Indexed entities section](#indexed-entities-section)
+
+2.[ Schemes section ](#schemes-section)
+
+3.[Filters section](#filters-section)
+
+4.[Solarium clients section](#solarium-clients-section)
 
 
 ### Indexed entities section
