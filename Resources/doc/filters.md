@@ -2,8 +2,9 @@
 
 ### Content
 
-[Field filter](#field-filter)
-[Service filter](#service-filter)
+1.[Field filter](#field-filter)
+
+2.[Service filter](#service-filter)
 
 
 ### Field filter
@@ -124,7 +125,7 @@ You also can implement your own symfony service as a filter applicable for whole
 
 
 ## Pages
-* [Getting started with DoctrineSolrBundle] (getting_started.md)
+* [Getting started with DoctrineSolrBundle](getting_started.md)
 * [ Regular, fuzzy, wildcard, range and negative search](fuzzy_wildcard_range_negative_search.md) 
 * [ Custom finder class ](custom_finder_class.md)
 * [Schema search over multiple entities classes](schema_search.md)
