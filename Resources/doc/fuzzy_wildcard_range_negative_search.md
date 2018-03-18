@@ -11,9 +11,11 @@ The Solr standard query parser provides a different types of search. DoctrineSol
 
 3.[Negative search](#negative-search)
 
-4.[Fuzzy search](#fuzzy-search)
+4.[Range search](#range-search)
 
-5.[Phrase treatment](#phrase-treatment)
+5.[Fuzzy search](#fuzzy-search)
+
+6.[Phrase treatment](#phrase-treatment)
 
 ### Regular search
 
