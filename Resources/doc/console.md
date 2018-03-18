@@ -48,7 +48,7 @@ Beside this you can specify the "id" of particular enitity:
 
 
 ## Pages
-* [Getting started with DoctrineSolrBundle] (getting_started.md)
+* [Getting started with DoctrineSolrBundle](getting_started.md)
 * [ Regular, fuzzy, wildcard, range and negative search](fuzzy_wildcard_range_negative_search.md) 
 * [ Custom finder class ](custom_finder_class.md)
 * [ Filters ](filters.md)
