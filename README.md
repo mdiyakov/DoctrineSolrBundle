@@ -36,12 +36,13 @@ public function registerBundles()
 {
 	$bundles = array(
 		// ...
-		new \Mdiyakov\DoctrineSolrBundle\MdiyakovDoctrineSolrBundle(),
+		new Nelmio\SolariumBundle\NelmioSolariumBundle(),
+		new Mdiyakov\DoctrineSolrBundle\MdiyakovDoctrineSolrBundle(),
 		// ...
 	);
 }
 ```
-
+> You have to install "NelmioSolariumBundle" also because it's used by MdiyakovDoctrineSolrBundle
 
 ### Step 3 : Quick start with DoctrineSolrBundle
 
