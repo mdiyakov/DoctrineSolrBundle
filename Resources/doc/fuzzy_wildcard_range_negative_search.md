@@ -5,10 +5,14 @@ The Solr standard query parser provides a different types of search. DoctrineSol
 
 ### Content
 
-1.[Regular search](#regular-search)   
+1.[Regular search](#regular-search)
+
 2.[Wildcard search](#wildcard-search)
+
 3.[Negative search](#negative-search)
+
 4.[Fuzzy search](#fuzzy-search)
+
 5.[Phrase treatment](#phrase-treatment)
 
 ### Regular search
