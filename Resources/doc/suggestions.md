@@ -5,8 +5,8 @@ The SuggestComponent in Solr provides users with automatic suggestions for query
 ### Content
 
 1. [Setting up](#setting-up)
-2. [ClassSuggester](#classSuggester)
-3. [SchemaSuggester](#schemaSuggester)
+2. [ClassSuggester](#classsuggester)
+3. [SchemaSuggester](#schemasuggester)
 
 
 ### Setting up
