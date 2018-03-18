@@ -94,7 +94,7 @@ The following arguments are available:
  *   **$isNegative** - if "true" the search result will exclude entities matched with search term by specified fields
  *   **$splitPhrase** - see section ["Phrase treatment"](#phrase-treatment) above
  *   **$distance** - for example if $distance is 1 then the "roam" search term will match terms like roams, foam, & foams. See [solr doc]((https://lucene.apache.org/solr/guide/6_6/the-standard-query-parser.html#TheStandardQueryParser-FuzzySearches)) for more details. 1 by default
-    **$limit** - the maximum documents in search result set. 100 by default
+ *   **$limit** - the maximum documents in search result set. 100 by default
     
 ### Phrase treatment
 
