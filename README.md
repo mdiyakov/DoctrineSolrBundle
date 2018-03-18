@@ -101,7 +101,7 @@ $searchResults = $finder->findSearchTermByFields($searchTerm, ['title']);
 
 
 ## Next steps
-1. [Getting started with DoctrineSolrBundle] (Resources/doc/getting_started.md)
+1. [Getting started with DoctrineSolrBundle](Resources/doc/getting_started.md)
 2. [ Regular, fuzzy, wildcard, range and negative search](Resources/doc/fuzzy_wildcard_range_negative_search.md) 
 3. [ Custom finder class ](Resources/doc/custom_finder_class.md)
 4. [ Filters ](Resources/doc/filters.md)
