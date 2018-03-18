@@ -72,13 +72,13 @@ $myEntities = $finder->findByRange(1, 23, ['popularity',..]);
 The search result will consist entities having "popularity" from 1 to 23 inclusive.
 
 The following arguments are available:
-   **$from** -  where the range starts from
-   **$to** - where the range ends 
-   **$fields** - entity fields where search will be done
-   **$isNegative** - if "true" the search result will exclude entities matched with range by specified fields 
-   **$exclusiveFrom** - if "true" then the search result will exclude entities having exactly same value specified in $from argument
-   **$exclusiveTo** - if "true" then the search result will exclude entities having exactly same value specified in $to argument
-   **$limit** - the maximum documents in search result set (100 by default)
+*   **$from** -  where the range starts from
+*   **$to** - where the range ends 
+*   **$fields** - entity fields where search will be done
+*   **$isNegative** - if "true" the search result will exclude entities matched with range by specified fields 
+*   **$exclusiveFrom** - if "true" then the search result will exclude entities having exactly same value specified in $from argument
+*   **$exclusiveTo** - if "true" then the search result will exclude entities having exactly same value specified in $to argument
+*   **$limit** - the maximum documents in search result set (100 by default)
 
 
 ### Fuzzy search
