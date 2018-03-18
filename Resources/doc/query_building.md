@@ -3,9 +3,11 @@
    
 ### Content
   
-[Select query](#select-query)
-[Update query](#update-query)
-[Suggest query](#suggest-query)   
+1.[Select query](#select-query)
+
+2.[Update query](#update-query)
+
+3.[Suggest query](#suggest-query)   
    
    
 ### Select query   
@@ -155,7 +157,7 @@ $suggestQuery = $this->get('mdiyakov_doctrine_solr.query.suggester_builder')->bu
 ```
 
 ## Pages
-* [Getting started with DoctrineSolrBundle] (getting_started.md)
+* [Getting started with DoctrineSolrBundle](getting_started.md)
 * [ Regular, fuzzy, wildcard, range and negative search](fuzzy_wildcard_range_negative_search.md) 
 * [ Custom finder class ](custom_finder_class.md)
 * [ Filters ](filters.md)
