@@ -5,11 +5,11 @@ The Solr standard query parser provides a different types of search. DoctrineSol
 
 ### Content
 
-[Regular search](#regular-search)   
-[Wildcard search](#wildcard-search)
-[Negative search](#negative-search)
-[Fuzzy search](#fuzzy-search)
-[Phrase treatment](#phrase-treatment)
+1.[Regular search](#regular-search)   
+2.[Wildcard search](#wildcard-search)
+3.[Negative search](#negative-search)
+4.[Fuzzy search](#fuzzy-search)
+5.[Phrase treatment](#phrase-treatment)
 
 ### Regular search
 
@@ -118,7 +118,7 @@ title:"house appartment" OR category:"house appartment"
 For wildcard and fuzzy searches you also can use **"$splitPhrase = false"** in this case the ["Complex Phrase Query Parser"](https://lucene.apache.org/solr/guide/6_6/other-parsers.html#OtherParsers-ComplexPhraseQueryParser) will be used for phrase treatment
 
 ## Pages
-* [Getting started with DoctrineSolrBundle] (getting_started.md) 
+* [Getting started with DoctrineSolrBundle](getting_started.md) 
 * [ Custom finder class ](custom_finder_class.md)
 * [ Filters ](filters.md)
 * [Schema search over multiple entities classes](schema_search.md)
