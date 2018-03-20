@@ -1,4 +1,4 @@
-  {
+{
   "name": "mdiyakov/doctrine-solr-bundle",
   "type": "symfony-bundle",
   "description": "Symfony 2 bundle for integration Doctrine entities with Solr",
@@ -17,7 +17,8 @@
   },
   "require": {
     "php": "^5.4",
-    "symfony/framework-bundle": "^2.1",
+    "symfony/framework-bundle": "^2.3",
+    "doctrine/doctrine-bundle": "^1.5.0",
     "doctrine/orm": "~2.4.0 || ~2.5.0",
     "solarium/solarium": "^3.0",
     "nelmio/solarium-bundle": "~2.1"
