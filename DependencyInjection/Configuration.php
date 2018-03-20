@@ -65,7 +65,7 @@ class Configuration implements ConfigurationInterface
                                         ->scalarNode('document_field_name')->cannotBeEmpty()->end()
                                         ->enumNode('field_type')
                                             ->defaultValue('string')
-                                            ->values(['string', 'array', 'boolean', 'int', 'double'])
+                                            ->values(['string', 'array', 'boolean', 'int', 'double', 'date'])
                                         ->end()
                                         ->booleanNode('entity_primary_key')->defaultValue(false)->end()
                                         ->scalarNode('priority')->defaultValue(0)->end()

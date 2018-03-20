@@ -15,7 +15,10 @@ class ArrayField extends Field
         $entityValue = $this->getEntityFieldValue($entity);
         if (is_scalar($entityValue)) {
             $entityValue =  [ $entityValue ];
-        } elseif ((!$entityValue instanceof \Iterator) && (!$entityValue instanceof \IteratorAggregate)) {
+        } elseif (
+            !is_array($entityValue) &&
+            ((!$entityValue instanceof \Iterator) && (!$entityValue instanceof \IteratorAggregate))
+        ) {
             throw new InvalidFieldValueException('Field value must be \Iterator or \IteratorAggregate instance');
         }
 

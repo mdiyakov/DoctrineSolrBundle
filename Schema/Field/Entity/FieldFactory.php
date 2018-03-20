@@ -10,6 +10,7 @@ class FieldFactory
         'double' => DoubleField::class,
         'array' => ArrayField::class,
         'boolean' => BooleanField::class,
+        'date' => DateField::class,
     ];
 
     /**
