@@ -90,7 +90,7 @@ class ConfigValidator
                 if (in_array($discriminatorValue, $this->discriminatorValues)) {
                     throw new ConfigFieldException(
                         sprintf(
-                            '"%s" discriminator value has already beed used.
+                            '"%s" discriminator value has already been used.
                             It seems there are two entity classes inside "indexed_entities" with identical discriminator config field value',
                             $discriminatorValue
                         )
