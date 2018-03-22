@@ -60,7 +60,7 @@ There is an availability to use negative condition for search. The "$isNegative"
 ```
 $myEntities = $finder->findSearchTermByFields('house', ['title','category',...], [], true);
 ```
-In this case the search result will exclude entities having "house" inside "title" and "category" fields. See [solr doc] (https://lucene.apache.org/solr/guide/6_6/the-standard-query-parser.html#TheStandardQueryParser-TheBooleanOperator-) for details   
+In this case the search result will exclude entities having "house" inside "title" **or** "category" fields. See [solr doc] (https://lucene.apache.org/solr/guide/6_6/the-standard-query-parser.html#TheStandardQueryParser-TheBooleanOperator-) for details   
 
 ### Range search
 
