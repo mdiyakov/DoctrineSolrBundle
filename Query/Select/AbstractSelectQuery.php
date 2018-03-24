@@ -196,7 +196,7 @@ abstract class AbstractSelectQuery
      * @param bool $isNegative
      * @return $this
      */
-    public function addRangeAndWhere($entityFieldName, $from = '*', $to = '*', $exclusiveFrom = false, $exclusiveTo = false, $isNegative)
+    public function addRangeAndWhere($entityFieldName, $from = '*', $to = '*', $exclusiveFrom = false, $exclusiveTo = false, $isNegative = false)
     {
         $from = $this->prepareSearchTerm($from);
         $to = $this->prepareSearchTerm($to);
@@ -653,8 +653,8 @@ abstract class AbstractSelectQuery
         $escapedSpecialSymbols = ['\+','\-','\&&','\||','\!','\(','\)','\{','\}','\[','\]','\^','\"','\~','\:','\/'];
 
         if (!$wildcard) {
-            $specialSymbols = ['*','?'];
-            $escapedSpecialSymbols = ['\*','\?'];
+            $specialSymbols = array_merge($specialSymbols, ['*','?']);
+            $escapedSpecialSymbols = array_merge($escapedSpecialSymbols, ['\*','\?']);
         }
 
         $searchTerm = preg_replace('/[^a-zA-Z\s0-9-_=+.?*!:)(\]\[ ]/', '', $searchTerm);
