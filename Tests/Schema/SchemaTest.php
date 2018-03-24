@@ -2,9 +2,6 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Tests\Schema;
 
-use Mdiyakov\DoctrineSolrBundle\Schema\Field\ConfigEntityField;
-use Mdiyakov\DoctrineSolrBundle\Schema\Field\DocumentUniqueField;
-use Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\Field;
 use Mdiyakov\DoctrineSolrBundle\Schema\Schema;
 use Symfony\Component\Yaml\Yaml;
 
@@ -65,7 +62,7 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
 
         $discriminator = false;
         foreach($configFields as $configField) {
-            $this->assertInstanceOf(ConfigEntityField::class, $configField);
+            $this->assertInstanceOf('Mdiyakov\DoctrineSolrBundle\Schema\Field\ConfigEntityField', $configField);
             $discriminator = $discriminator ? $discriminator : $configField->isDiscriminator();
             $this->assertArrayHasKey($configField->getConfigFieldName(), $configFieldNames);
             $this->assertArrayHasKey($configField->getDocumentFieldName(), $documentConfigFieldNames);
@@ -74,23 +71,23 @@ class SchemaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(true, $discriminator);
 
         $uniqueDocumentField = $schema->getDocumentUniqueField();
-        $this->assertInstanceOf(DocumentUniqueField::class, $uniqueDocumentField);
+        $this->assertInstanceOf('Mdiyakov\DoctrineSolrBundle\Schema\Field\DocumentUniqueField', $uniqueDocumentField);
         $this->assertEquals($schemaConfig['document_unique_field']['name'], $uniqueDocumentField->getName());
 
         $primaryKeyField = $schema->getEntityPrimaryKeyField();
-        $this->assertInstanceOf(Field::class, $primaryKeyField);
+        $this->assertInstanceOf('Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\Field', $primaryKeyField);
         $this->assertEquals('id', $primaryKeyField->getEntityFieldName());
         $this->assertEquals('d_id', $primaryKeyField->getDocumentFieldName());
 
         $fields = $schema->getFields();
         foreach($fields as $field) {
-            $this->assertInstanceOf(Field::class, $field);
+            $this->assertInstanceOf('Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\Field', $field);
             $this->assertArrayHasKey($field->getEntityFieldName(), $fieldNames);
             $this->assertArrayHasKey($field->getDocumentFieldName(), $documentFieldNames);
         }
 
         $titleField = $schema->getFieldByEntityFieldName('title');
-        $this->assertInstanceOf(Field::class, $titleField);
+        $this->assertInstanceOf('Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\Field', $titleField);
         $this->assertEquals('title', $titleField->getEntityFieldName());
         $this->assertEquals('d_title', $titleField->getDocumentFieldName());
     }

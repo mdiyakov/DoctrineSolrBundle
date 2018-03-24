@@ -3,10 +3,6 @@
 namespace Mdiyakov\DoctrineSolrBundle\Tests\Query\Select;
 
 use Mdiyakov\DoctrineSolrBundle\Query\Select\AbstractSelectQuery;
-use Mdiyakov\DoctrineSolrBundle\Schema\Field\ConfigEntityField;
-use Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\Field;
-use Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField;
-use Mdiyakov\DoctrineSolrBundle\Schema\Schema;
 
 class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,7 +15,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
 
         $fieldName = 'type';
         $documentFieldName = 'discriminator';
-        $field = $this->getFieldMock($documentFieldName, ConfigEntityField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\ConfigEntityField');
         $searchTerm = 'search';
 
         $schema->expects($this->any())
@@ -51,7 +47,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
 
         $entityFieldName = 'title';
         $documentFieldName = 'd_title';
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
         $searchTerm = 'search+-?*';
         $searchTermFiltered = 'search\+\-\?\*';
         $searchTermWildcardFiltered = 'search\+\-?*';
@@ -85,7 +81,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
 
         $entityFieldName = 'title';
         $documentFieldName = 'd_title';
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
         $searchTerm = 'search';
 
         $schema->expects($this->any())
@@ -118,7 +114,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $entityFieldName = 'title';
         $documentFieldName = 'd_title';
         $searchTerm = 'search';
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
 
         $schema->expects($this->any())
             ->method('getFieldByEntityFieldName')
@@ -149,7 +145,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $entityFieldName = 'title';
         $documentFieldName = 'd_title';
         $searchTerm = 'search';
-        $field = $this->getFieldMock($documentFieldName, StringField::class, 10);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField', 10);
 
         $schema->expects($this->any())
             ->method('getFieldByEntityFieldName')
@@ -184,7 +180,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $from = 3;
         $to = 89;
 
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
 
         $schema->expects($this->any())
             ->method('getFieldByEntityFieldName')
@@ -219,7 +215,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $from = 3;
         $to = 89;
 
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
         $schema->expects($this->any())
             ->method('getFieldByEntityFieldName')
             ->with($entityFieldName)
@@ -254,7 +250,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $searchTerm = 'search';
         $distance = 19;
 
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
         $schema->expects($this->any())
             ->method('getFieldByEntityFieldName')
             ->with($entityFieldName)
@@ -287,7 +283,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $searchTerm = 'search';
         $distance = 19;
 
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
         $schema->expects($this->any())
             ->method('getFieldByEntityFieldName')
             ->with($entityFieldName)
@@ -318,7 +314,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $documentFieldName = 'd_category';
         $searchTerm = 'search';
 
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
         $schema->expects($this->any())
             ->method('getFieldByEntityFieldName')
             ->with($entityFieldName)
@@ -350,7 +346,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $documentFieldName = 'd_category';
         $searchTerm = 'search';
 
-        $field = $this->getFieldMock($documentFieldName, StringField::class);
+        $field = $this->getFieldMock($documentFieldName, 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField');
         $schema->expects($this->any())
             ->method('getFieldByEntityFieldName')
             ->with($entityFieldName)
@@ -374,9 +370,9 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
 
     private function getSchemaMock()
     {
-        $schema = $this->getMockBuilder(Schema::class)->disableOriginalConstructor()->getMock();
-        $discriminatorField = $this->getMockBuilder(ConfigEntityField::class)->disableOriginalConstructor()->getMock();
-        $primaryKeyField = $this->getMockBuilder(Field::class)->disableOriginalConstructor()->getMock();
+        $schema = $this->getMockBuilder('Mdiyakov\DoctrineSolrBundle\Schema\Schema')->disableOriginalConstructor()->getMock();
+        $discriminatorField = $this->getMockBuilder('Mdiyakov\DoctrineSolrBundle\Schema\Field\ConfigEntityField')->disableOriginalConstructor()->getMock();
+        $primaryKeyField = $this->getMockBuilder('Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\Field')->disableOriginalConstructor()->getMock();
 
         $schema->expects($this->at(0))->method('getDiscriminatorConfigField')
             ->will($this->returnValue($discriminatorField));
@@ -395,12 +391,12 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
     private function getQueryMock($client, $schema)
     {
         /** @var AbstractSelectQuery|\PHPUnit_Framework_MockObject_MockObject $query */
-        return $this->getMockForAbstractClass(AbstractSelectQuery::class, [$client, $schema]);
+        return $this->getMockForAbstractClass('Mdiyakov\DoctrineSolrBundle\Query\Select\AbstractSelectQuery', [$client, $schema]);
     }
 
     private function getClientMock()
     {
-        $client = $this->getMockBuilder(\Solarium\Client::class)->disableOriginalConstructor()->getMock();
+        $client = $this->getMockBuilder('Solarium\Client')->disableOriginalConstructor()->getMock();
 
         $client->expects($this->at(0))->method('createSelect')
             ->will($this->returnValue(

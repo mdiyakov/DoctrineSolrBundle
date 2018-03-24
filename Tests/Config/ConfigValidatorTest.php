@@ -4,8 +4,6 @@ namespace Mdiyakov\DoctrineSolrBundle\Tests\Config;
 
 use Mdiyakov\DoctrineSolrBundle\Config\ConfigValidator;
 use Mdiyakov\DoctrineSolrBundle\Finder\ClassFinder;
-use Mdiyakov\DoctrineSolrBundle\Tests\Config\Entity\MyEntity;
-use Mdiyakov\DoctrineSolrBundle\Tests\Config\Entity\MyEntity2;
 use Symfony\Component\Yaml\Yaml;
 
 class MyEntityFinder extends ClassFinder {}
@@ -96,8 +94,8 @@ class ConfigValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->configFixtures['discriminator_config_not_unique'];
 
-        $config['indexed_entities']['my_entity_1']['class']  = MyEntity::class;
-        $config['indexed_entities']['my_entity_2']['class']  = MyEntity2::class;
+        $config['indexed_entities']['my_entity_1']['class']  = 'Mdiyakov\DoctrineSolrBundle\Tests\Config\Entity\MyEntity';
+        $config['indexed_entities']['my_entity_2']['class']  = 'Mdiyakov\DoctrineSolrBundle\Tests\Config\Entity\MyEntity2';
 
         foreach ($config['indexed_entities'] as $entityConfig) {
             $this->validator->validate($entityConfig, $config['schemes'], $config['filters'], $config['solarium_clients']);
@@ -112,8 +110,8 @@ class ConfigValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->configFixtures[$configName];
 
-        $config['indexed_entities']['my_entity']['class']  = MyEntity::class;
-        $config['indexed_entities']['my_entity']['finder_class']  = MyEntityFinder::class;
+        $config['indexed_entities']['my_entity']['class']  = 'Mdiyakov\DoctrineSolrBundle\Tests\Config\Entity\MyEntity';
+        $config['indexed_entities']['my_entity']['finder_class']  = 'Mdiyakov\DoctrineSolrBundle\Tests\Config\MyEntityFinder';
 
         return $config;
     }

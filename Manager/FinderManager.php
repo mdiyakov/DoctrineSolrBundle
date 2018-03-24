@@ -27,14 +27,14 @@ class FinderManager
     public function __construct(Config $config, SelectQueryBuilder $queryBuilder)
     {
         $entityConfigs = $config->getIndexedEntities();
-
+        $defaultFinderClass = 'Mdiyakov\DoctrineSolrBundle\Finder\ClassFinder';
         foreach ($entityConfigs as $entityConfig) {
             $entityClass = $entityConfig['class'];
             if (!array_key_exists($entityClass, $this->classFinders)) {
 
-                $finderClass = (!empty($entityConfig['finder_class'])) ? $entityConfig['finder_class'] : ClassFinder::class;
+                $finderClass = (!empty($entityConfig['finder_class'])) ? $entityConfig['finder_class'] : $defaultFinderClass;
 
-                if ($finderClass != ClassFinder::class && !is_subclass_of($finderClass, ClassFinder::class)) {
+                if ($finderClass != $defaultFinderClass && !is_subclass_of($finderClass, $defaultFinderClass)) {
                     throw new FinderException('Finder class of entity must be extended from ClassFinder');
                 }
 

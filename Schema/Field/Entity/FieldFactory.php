@@ -5,12 +5,12 @@ namespace Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity;
 class FieldFactory
 {
     private $map = [
-        'string' => StringField::class,
-        'int' => IntField::class,
-        'double' => DoubleField::class,
-        'array' => ArrayField::class,
-        'boolean' => BooleanField::class,
-        'date' => DateField::class,
+        'string' => 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\StringField',
+        'int' => 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\IntField',
+        'double' => 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\DoubleField',
+        'array' => 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\ArrayField',
+        'boolean' => 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\BooleanField',
+        'date' => 'Mdiyakov\DoctrineSolrBundle\Schema\Field\Entity\DateField',
     ];
 
     /**
