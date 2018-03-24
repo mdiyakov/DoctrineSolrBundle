@@ -124,12 +124,12 @@ The **"document_unique_field"** specifies a name of unique field in solr schema.
 ##### config_entity_fields (required)
 In the **"config_entity_fields"** each row reflects how config field specified in "indexed_entities" section ("config" parameter) is stored in solr. Also here we have to mark one field as "discriminator" (see "discriminator" below for details). The possible attributes here are:
 ```
- {  config_field_name: 'type', document_field_name: 'type', discriminator: true, priority: 50 }
+        {  config_field_name: 'type', document_field_name: 'type', discriminator: true, priority: 50 }
 ```
   *  **config_field_name** (required) - reflects the config field name in "indexed_entities" sections. For example if you have in "indexed_entities":
 ```     
-     config: 
-        - { name: config_field_name_1, value: config_field_value_1  }
+        config: 
+            - { name: config_field_name_1, value: config_field_value_1  }
 ```       
      then **config_field_name** should be "config_field_name_1"
   * **document_field_name** (required) - reflects what name the config field has in solr schema.xml.
@@ -150,6 +150,7 @@ The **"fields"** each row reflects how particular entity field is stored in solr
     * **"double"** - In this case "doubleval" method will be run to an entity field value . If an entity field value  is not a number the exception will be thrown 
     * **"int"** - In this case "intval" method will be run to an entity field value. If an entity field value  is not a number the exception will be thrown
     * **"boolean"** - In this case "boolval" method will be run to an entity field value
+    * **"date"** - In this case an entity field value must be an \DateTime instance otherwise an exception will be thrown
   * **entity_primary_key** (optional, by default "false") - has the boolean value. If it set as true then the value of the entity field will be used for unique solr document field. Only one field can have this attribute as true.   
   * **suggester** (optional, by default "null")  -  reflects the field supports suggestions solr component or not. See ["Suggestions"](suggestions.md) page for details
   * **priority** (optional) -  boosting a search results by this field accordingly with value.
