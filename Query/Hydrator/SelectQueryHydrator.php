@@ -65,9 +65,9 @@ class SelectQueryHydrator
             if ($discriminatorField->getValue($this->entityConfig) !== $documentRow[$discriminatorField->getDocumentFieldName()]) {
                 throw new DiscriminatorFieldException(
                     sprintf(
-                        'Discriminator field value "%s" must be %s but %s is provided',
+                        'Discriminator field value "%s" must be "%s" but "%s" is provided',
                         $discriminatorField->getConfigFieldName(),
-                        $this->entityConfig[$discriminatorField->getConfigFieldName()],
+                        $discriminatorField->getValue($this->entityConfig),
                         $documentRow[$discriminatorField->getDocumentFieldName()]
                     )
                 );
