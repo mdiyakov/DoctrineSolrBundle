@@ -20,7 +20,7 @@
     "symfony/framework-bundle": "^2.3",
     "doctrine/doctrine-bundle": "^1.5.0",
     "doctrine/orm": "~2.4.0 || ~2.5.0",
-    "symfony/property-access": "<=3.0.9",
+    "symfony/property-access": ">=2.3.0,<=3.0.9",
     "solarium/solarium": "^3.0",
     "nelmio/solarium-bundle": "~2.1"
   },
