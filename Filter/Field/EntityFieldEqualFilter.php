@@ -9,7 +9,7 @@ class EntityFieldEqualFilter extends EntityFieldFilter
      * @param mixed $value
      * @return bool
      */
-    public function validate($value)
+    protected function validate($value)
     {
         return $value === $this->getEntityFieldValue();
     }

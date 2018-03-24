@@ -13,7 +13,7 @@ class StringField extends Field
         $entityValue = $this->getEntityFieldValue($entity);
         $documentValue = '';
         if (is_scalar($entityValue)) {
-            $documentValue = $entityValue;
+            $documentValue = strval($entityValue);
         } elseif (is_array($entityValue) || $entityValue instanceof \Iterator || $entityValue instanceof \IteratorAggregate) {
             $documentValue = [];
             foreach ($entityValue as $value) {

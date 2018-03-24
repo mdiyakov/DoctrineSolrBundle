@@ -12,19 +12,21 @@ class ArrayField extends Field
      */
     public function getDocumentFieldValue($entity)
     {
-        $entityValue = $this->getEntityFieldValue($entity);
-        if (is_scalar($entityValue)) {
-            $entityValue =  [ $entityValue ];
-        } elseif (
-            !is_array($entityValue) &&
-            ((!$entityValue instanceof \Iterator) && (!$entityValue instanceof \IteratorAggregate))
-        ) {
-            throw new InvalidFieldValueException('Field value must be \Iterator or \IteratorAggregate instance');
-        }
-
         $result = [];
-        foreach ($entityValue as $value) {
-            $result[] = strval($value);
+        $entityValue = $this->getEntityFieldValue($entity);
+        if (!is_null($entityValue)) {
+            if (is_scalar($entityValue)) {
+                $entityValue =  [ $entityValue ];
+            } elseif (
+                !is_array($entityValue) &&
+                ((!$entityValue instanceof \Iterator) && (!$entityValue instanceof \IteratorAggregate))
+            ) {
+                throw new InvalidFieldValueException('Field value must be \Iterator or \IteratorAggregate instance');
+            }
+
+            foreach ($entityValue as $value) {
+                $result[] = strval($value);
+            }
         }
 
         return $result;

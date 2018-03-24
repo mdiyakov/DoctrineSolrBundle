@@ -10,22 +10,25 @@ class DateField extends Field
 
     /**
      * @param object $entity
-     * @return string
+     * @return string|null
      */
     public function getDocumentFieldValue($entity)
     {
+        $result = null;
         $entityValue = $this->getEntityFieldValue($entity);
-
-        if (!$entityValue instanceof \DateTime) {
-            throw new InvalidFieldValueException(
-                sprintf(
-                    '"%s" field value of "%s" must be a DateTime instance',
-                    $this->getEntityFieldName(),
-                    get_class($entity)
-                )
-            );
+        if (!is_null($entityValue)) {
+            if (!$entityValue instanceof \DateTime) {
+                throw new InvalidFieldValueException(
+                    sprintf(
+                        '"%s" field value of "%s" must be a DateTime instance',
+                        $this->getEntityFieldName(),
+                        get_class($entity)
+                    )
+                );
+            }
+            $result = $entityValue->format(self::FORMAT);
         }
 
-        return $entityValue->format(self::FORMAT);
+        return $result;
     }
 }

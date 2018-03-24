@@ -46,7 +46,7 @@ abstract class EntityFieldFilter implements EntityFilterInterface
         }
 
         $value = PropertyAccess::createPropertyAccessor()->getValue($entity, $this->getEntityFieldName());
-        if (!is_scalar($value)) {
+        if (!empty($value) && !is_scalar($value)) {
             if (method_exists($value, '__toString')) {
                 $value = call_user_func([$value, '__toString']);
             } else {
