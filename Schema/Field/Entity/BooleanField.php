@@ -10,8 +10,6 @@ class BooleanField extends Field
      */
     public function getDocumentFieldValue($entity)
     {
-        return boolval($this->getEntityFieldValue($entity));
+        return (bool) $this->getEntityFieldValue($entity);
     }
-
-
 }

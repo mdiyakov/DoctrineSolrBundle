@@ -32,7 +32,7 @@ class MultiClassSelectQueryTest extends \PHPUnit_Framework_TestCase
         $client = $this->getMockBuilder('Solarium\Client')->disableOriginalConstructor()->getMock();
         $client->expects($this->at(0))->method('createSelect')
             ->will($this->returnValue(
-                $this->createMock('Solarium\QueryType\Select\Query\Query')
+                $this->getMockBuilder('Solarium\QueryType\Select\Query\Query')->disableOriginalConstructor()->getMock()
             ));
 
 

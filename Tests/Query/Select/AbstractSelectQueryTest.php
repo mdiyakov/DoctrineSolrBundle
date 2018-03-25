@@ -98,7 +98,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
 
         $client->expects($this->once())->method('createSelect')
             ->will($this->returnValue(
-                $this->createMock('Solarium\QueryType\Select\Query\Query')
+                $this->getMockBuilder('Solarium\QueryType\Select\Query\Query')->disableOriginalConstructor()->getMock()
             ));
 
         $query->reset();
@@ -400,7 +400,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
 
         $client->expects($this->at(0))->method('createSelect')
             ->will($this->returnValue(
-                $this->createMock('Solarium\QueryType\Select\Query\Query')
+                $this->getMockBuilder('Solarium\QueryType\Select\Query\Query')->disableOriginalConstructor()->getMock()
             ));
 
         return $client;
