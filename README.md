@@ -1,4 +1,5 @@
 # DoctrineSolrBundle
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/18962102-252f-4e26-a990-37072d3061b7/big.png)](https://insight.sensiolabs.com/projects/18962102-252f-4e26-a990-37072d3061b7)
 
 DoctrineSolrBundle is a Symfony bundle designed to mitigate Solr usage in symfony projects
 
