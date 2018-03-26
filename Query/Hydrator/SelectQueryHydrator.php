@@ -47,6 +47,10 @@ class SelectQueryHydrator
     public function hydrate($documentsArray)
     {
         if (!is_array($documentsArray)) {
+            throw new HydratorException('Result dataset must be an array');
+        }
+
+        if (empty($documentsArray)) {
             throw new HydratorException('Result dataset is empty');
         }
 
@@ -95,18 +99,22 @@ class SelectQueryHydrator
         ;
 
         if (count($entities) != count($documentsArray)) {
-            foreach($entities as $entity) {
-                $entityPrimaryKeyValue = $entityPrimaryKeyField->getEntityFieldValue($entity);
-                if (array_search($entityPrimaryKeyValue, $primaryKeyValues) === false) {
-                    throw new HydratorException(
-                        sprintf(
-                            'Entity %s with %s primary key is not found in database',
-                            $this->entityConfig['class'],
-                            $entityPrimaryKeyValue
-                        )
-                    );
-                }
-            }
+            $entityIds = array_map(
+                function($entity) use ($entityPrimaryKeyField)
+                {
+                    return  $entityPrimaryKeyField->getEntityFieldValue($entity);
+                },
+                $entities
+            );
+
+            $notFoundEntityIds = array_diff($primaryKeyValues, $entityIds);
+            throw new HydratorException(
+                sprintf(
+                    'Entities of "%s" with "%s" primary keys are not found in database',
+                    $this->entityConfig['class'],
+                    join(', ', $notFoundEntityIds)
+                )
+            );
         }
 
         return $entities;

@@ -108,7 +108,8 @@ abstract class AbstractSelectQuery
         /** @var Result $response */
         $response = $this->getClient()->execute($query);
 
-        if (!$response->getNumFound()) {
+        $documents = $response->getDocuments();
+        if (empty($documents)) {
             return [];
         }
 

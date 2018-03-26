@@ -72,7 +72,7 @@ class SelectQueryHydratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Mdiyakov\DoctrineSolrBundle\Exception\HydratorException
-     * @expectedExceptionMessage Entity ArticleEntity with 32 primary key is not found in database
+     * @expectedExceptionMessage Entities of "ArticleEntity" with "1, 3" primary keys are not found in database
      */
     public function testWrongEntitiesCount()
     {
