@@ -45,7 +45,7 @@ class SchemaFinder extends AbstractFinder
         $this->schema = $schema;
 
         foreach ($config->getIndexedEntities() as $entityConfig) {
-            if (!$schema->getName() == $entityConfig['schema']) {
+            if ($schema->getName() != $entityConfig['schema']) {
                 continue;
             }
             $this->entityConfigs[$entityConfig['class']] = $entityConfig;
@@ -58,7 +58,9 @@ class SchemaFinder extends AbstractFinder
     public function addSelectClass($class)
     {
         if (!array_key_exists($class, $this->entityConfigs)) {
-            throw new \InvalidArgumentException('');
+            throw new \InvalidArgumentException(
+                sprintf('Class "%s" is not configured to be used with schema "%s"', $class, $this->getSchema()->getName())
+            );
         }
 
         if (array_search($class, $this->selectedClasses) === false) {
