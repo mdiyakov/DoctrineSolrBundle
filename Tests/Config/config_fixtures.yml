@@ -163,3 +163,25 @@ discriminator_config_not_unique:
               - {  entity_field_name: 'id', document_field_name: 'd_id', field_type: int, entity_primary_key: true }
     filters: []
     solarium_clients: []
+
+entity_class_doubled:
+    indexed_entities:
+        my_entity:
+            class:  Mdiyakov\DoctrineSolrBundle\Tests\Config\Entity\MyEntity
+            schema: my_schema
+            config:
+              - { name: type, value: page }
+        my_entity_2:
+            class:  Mdiyakov\DoctrineSolrBundle\Tests\Config\Entity\MyEntity
+            schema: my_schema
+            config:
+              - { name: type, value: page }
+    schemes:
+        my_schema:
+            document_unique_field: { name: 'uid' }
+            config_entity_fields:
+              - {  config_field_name: 'type', document_field_name: 'type', discriminator: true, priority: 50 }
+            fields:
+              - {  entity_field_name: 'id', document_field_name: 'd_id', field_type: int, entity_primary_key: true }
+    filters: []
+    solarium_clients: []

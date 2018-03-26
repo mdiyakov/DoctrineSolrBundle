@@ -4,6 +4,7 @@ namespace Mdiyakov\DoctrineSolrBundle\Config;
 
 use Mdiyakov\DoctrineSolrBundle\Exception\ClientConfigException;
 use Mdiyakov\DoctrineSolrBundle\Exception\ConfigFieldException;
+use Mdiyakov\DoctrineSolrBundle\Exception\EntityClassConfigException;
 use Mdiyakov\DoctrineSolrBundle\Exception\FilterConfigException;
 use Mdiyakov\DoctrineSolrBundle\Exception\RequiredFieldException;
 use Mdiyakov\DoctrineSolrBundle\Exception\SchemaConfigException;
@@ -12,9 +13,14 @@ use Mdiyakov\DoctrineSolrBundle\Exception\SchemaNotFoundException;
 class ConfigValidator
 {
     /**
-     * @var array
+     * @var string[]
      */
     private $discriminatorValues = [];
+
+    /**
+     * @var string[]
+     */
+    private $entityClasses = [];
 
     /**
      * @param string[][] $entityConfig
@@ -33,6 +39,7 @@ class ConfigValidator
 
         $schemaConfig = $schemes[$entityConfig['schema']];
         $this->checkEntityContainRequiredFields($entityConfig['class'], $schemaConfig);
+        $this->checkClassesForUnique($entityConfig['class']);
         $this->checkConfigFields($entityConfig, $schemaConfig);
         $this->checkFilters($entityConfig, $filters);
         $this->checkClients($schemaConfig, $clients);
@@ -214,6 +221,24 @@ class ConfigValidator
                     'Either getter method "%s" or isser method "%s" is not found in %s.',
                     $getterMethodName,
                     $isserMethodName,
+                    $entityClass
+                )
+            );
+        }
+    }
+
+    /**
+     * @param $entityClass
+     * @throws EntityClassConfigException
+     */
+    private function checkClassesForUnique($entityClass)
+    {
+        if (!in_array($entityClass, $this->entityClasses)) {
+            $this->entityClasses[] = $entityClass;
+        } else {
+            throw new EntityClassConfigException(
+                sprintf(
+                    'It seems entity class "%s" has been configured more than once inside "indexed_entities" section. You can not have different config for the single entity class',
                     $entityClass
                 )
             );

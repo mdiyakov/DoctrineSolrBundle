@@ -86,6 +86,16 @@ class ConfigValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException \Mdiyakov\DoctrineSolrBundle\Exception\EntityClassConfigException
+     * @expectedExceptionMessage It seems entity class "Mdiyakov\DoctrineSolrBundle\Tests\Config\Entity\MyEntity" has been configured more than once inside "indexed_entities" section. You can not have different config for the single entity class
+     */
+    public function testEntityClassDoubled()
+    {
+        $this->runConfigTest('entity_class_doubled');
+    }
+
+
+    /**
      * @expectedException \Mdiyakov\DoctrineSolrBundle\Exception\ConfigFieldException
      * @expectedExceptionMessage "my_enitity_type" discriminator value has already been used.
     It seems there are two entity classes inside "indexed_entities" with identical discriminator config field value
