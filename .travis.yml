@@ -7,9 +7,6 @@ php:
 env:
   - COMPOSER_FLAGS="--prefer-lowest"
   - COMPOSER_FLAGS=""
-  - SYMFONY_VERSION=2.4.*
-  - SYMFONY_VERSION=2.5.*
-  - SYMFONY_VERSION=2.6.*
   - SYMFONY_VERSION=2.7.*
 
 before_script:
