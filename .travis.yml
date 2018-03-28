@@ -7,15 +7,13 @@ php:
 env:
   - COMPOSER_FLAGS="--prefer-lowest"
   - COMPOSER_FLAGS=""
-  - SYMFONY_VERSION=2.3.*
   - SYMFONY_VERSION=2.4.*
   - SYMFONY_VERSION=2.5.*
   - SYMFONY_VERSION=2.6.*
   - SYMFONY_VERSION=2.7.*
-  - SYMFONY_VERSION=2.8.*
 
 before_script:
-  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --update-with-dependencies "symfony/framework-bundle:$SYMFONY_VERSION"; fi
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --update-with-all-dependencies "symfony/framework-bundle:$SYMFONY_VERSION"; fi
 
 install: travis_retry composer update $COMPOSER_FLAGS
 
