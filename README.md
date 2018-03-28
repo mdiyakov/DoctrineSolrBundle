@@ -1,5 +1,5 @@
 # DoctrineSolrBundle
-[![Build Status](https://travis-ci.org/mdiyakov/DoctrineSolrBundle.svg?branch=v1.0)](https://travis-ci.org/mdiyakov/DoctrineSolrBundle)
+[![Build Status](https://travis-ci.org/mdiyakov/DoctrineSolrBundle.svg?branch=master)](https://travis-ci.org/mdiyakov/DoctrineSolrBundle)
 
 DoctrineSolrBundle is a Symfony bundle designed to mitigate Solr usage in symfony projects
 
