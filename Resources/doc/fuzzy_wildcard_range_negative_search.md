@@ -70,6 +70,11 @@ Default ClassFinder implementation provides a special method for Range search ([
 $myEntities = $finder->findByRange(1, 23, ['popularity',..]);
 ```
 
+To search by date you can use the following approach:
+```
+$myEntities = $finder->findByRange($startDate->format(DateField::FORMAT), $endDate->format(DateField::FORMAT), ['date']);
+```
+
 The search result will consist entities having "popularity" from 1 to 23 inclusive.
 
 The following arguments are available:
