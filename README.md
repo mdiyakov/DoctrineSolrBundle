@@ -115,3 +115,4 @@ $searchResults = $finder->findSearchTermByFields($searchTerm, ['title']);
 6. [Suggestions](Resources/doc/suggestions.md)
 7. [Query building](Resources/doc/query_building.md)
 8. [Console command to index entities](Resources/doc/console.md)
+9. [Roadmap](https://github.com/mdiyakov/DoctrineSolrBundle/wiki/Roadmap-for-April,-2018)
