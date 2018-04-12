@@ -25,7 +25,7 @@
     "nelmio/solarium-bundle": "~2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.7||~5||~6"
+    "phpunit/phpunit": "^4.7||~5"
   },
   "autoload": {
     "psr-4": { "Mdiyakov\\DoctrineSolrBundle\\": "" }
