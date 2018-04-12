@@ -184,7 +184,7 @@ class UpdateQuery
         }
 
         foreach ($this->entityConditions as $fieldsConditions) {
-            /** @var \Solarium\QueryType\Update\Query\Document\Document $document */
+            /** @var \Solarium\QueryType\Update\Query\Document $document */
             $document = $this->solrQuery->createDocument();
             foreach ($fieldsConditions as $documentFieldName => $value) {
                 $document->addField($documentFieldName, $value);
