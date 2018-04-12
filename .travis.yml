@@ -12,6 +12,11 @@ env:
   - COMPOSER_FLAGS=""
   - SYMFONY_VERSION=2.7.*
 
+matrix:
+  exclude:
+    - php: 7.2
+      env: COMPOSER_FLAGS="--prefer-lowest"
+
 before_script:
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --update-with-all-dependencies "symfony/framework-bundle:$SYMFONY_VERSION"; fi
 
