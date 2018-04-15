@@ -6,7 +6,7 @@ valid_schema:
       - {  config_field_name: 'host', document_field_name: 'app_source', discriminator: false, priority: 1  }
     fields:
       - {  entity_field_name: 'id', document_field_name: 'd_id', field_type: int, entity_primary_key: true, priority: 1, suggester: '' }
-      - {  entity_field_name: 'title', document_field_name: 'd_title' , priority: 100 , entity_primary_key: false, suggester: 'title', priority: 1, suggester: '', field_type: string }
+      - {  entity_field_name: 'title', document_field_name: 'd_title' , priority: 100 , entity_primary_key: false, suggester: 'title',  suggester: '', field_type: string }
       - {  entity_field_name: 'enabled', document_field_name: 'd_body', field_type: boolean, priority: 1, suggester: '', entity_primary_key: false }
       - {  entity_field_name: 'price', document_field_name: 'd_price', field_type: double, priority: 1, suggester: '', entity_primary_key: false }
       - {  entity_field_name: 'tags', document_field_name: 'd_tags' , field_type: array, priority: 1, suggester: '', entity_primary_key: false }

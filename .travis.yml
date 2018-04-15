@@ -13,6 +13,7 @@ env:
   - SYMFONY_VERSION=2.7.*
   - SYMFONY_VERSION=3.0.*
   - SYMFONY_VERSION=3.1.*
+  - SYMFONY_VERSION=3.4.*
 
 matrix:
   exclude:
@@ -22,6 +23,8 @@ matrix:
       env: SYMFONY_VERSION=3.0.*
     - php: 5.4
       env: SYMFONY_VERSION=3.1.*
+    - php: 5.4
+      env: SYMFONY_VERSION=3.4.*
 
 
 before_script:
