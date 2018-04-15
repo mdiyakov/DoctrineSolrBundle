@@ -27,7 +27,7 @@ matrix:
       env: SYMFONY_VERSION=3.4.*
 
 
-before_script:
+before_install:
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --update-with-all-dependencies "symfony/framework-bundle:$SYMFONY_VERSION"; fi
 
 install: travis_retry composer update $COMPOSER_FLAGS
