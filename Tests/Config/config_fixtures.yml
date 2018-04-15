@@ -7,7 +7,7 @@ success_config:
             filters: [ big_id ]
             config:
               - { name: type, value: page }
-              - { name: host, value: %solr_host% }
+              - { name: host, value: "%solr_host%" }
     schemes:
         my_schema:
             client: my_client
