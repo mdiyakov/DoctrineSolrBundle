@@ -18,7 +18,7 @@ class FieldResult
     /**
      * @var SuggestionResult[]
      */
-    private $suggestions;
+    private $suggestions = [];
 
     /**
      * FieldResult constructor.
