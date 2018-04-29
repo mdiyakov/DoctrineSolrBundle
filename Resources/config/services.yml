@@ -36,11 +36,20 @@ services:
         arguments:
             - '@mdiyakov_doctrine_solr.config.config'
 
-    mdiyakov_doctrine_solr.command.index_all_command:
+    mdiyakov_doctrine_solr.command.index_entities:
         class: Mdiyakov\DoctrineSolrBundle\Command\IndexEntitiesCommand
         arguments:
             - '@mdiyakov_doctrine_solr.config.config'
             - '@mdiyakov_doctrine_solr.manager.index_process_manager'
+            - '@doctrine.orm.default_entity_manager'
+        tags:
+            - { name: console.command }
+
+    mdiyakov_doctrine_solr.command.clear_index:
+        class: Mdiyakov\DoctrineSolrBundle\Command\ClearIndexCommand
+        arguments:
+            - '@mdiyakov_doctrine_solr.config.config'
+            - '@mdiyakov_doctrine_solr.query.update_builder'
             - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: console.command }
