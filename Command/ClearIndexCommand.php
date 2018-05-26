@@ -135,24 +135,32 @@ class ClearIndexCommand extends Command
         $schemaName = $entityConfig['schema'];
         $updateQuery = $this->updateQueryBuilder->buildUpdateQueryBySchemaName($schemaName);
         $schema = $this->config->getSchemaByName($schemaName);
-        $discriminatorField = $schema->getDiscriminatorConfigField();
-        $discriminatorValue = $discriminatorField->getValue($entityConfig);
 
         if (empty($id)) {
-            $updateQuery->addDeleteCriteriaByField(
+            $discriminatorField = $schema->getDiscriminatorConfigField();
+            $discriminatorValue = $discriminatorField->getValue($entityConfig);
+            $updateQuery->addDeleteCriteriaByConfigField(
                 $discriminatorField->getDocumentFieldName(),
                 $discriminatorValue
             );
-            $message = sprintf('Removing of %s is completed successfully',
-                $entityConfig['class']
+            $message = sprintf('Removing of %s is completed successfully', $entityConfig['class']);
+        } else {
+            $entityClass = $entityConfig['class'];
+            $repository = $this->em->getRepository($entityClass);
+            $entity = $repository->find($id);
+
+            if (!$entity) {
+                throw new EntityNotFoundException(
+                    sprintf('% with %s id is not found', $entityClass, $id)
+                );
+            }
+
+            $updateQuery->addDeleteCriteriaByUniqueFieldValue(
+                $schema->getDocumentUniqueField()->getValue($entity, $entityConfig)
             );
 
-        } else {
-            $updateQuery->addDeleteCriteriaByUniqueFieldValue(
-                sprintf('%s-%s', $discriminatorValue, $id)
-            );
             $message = sprintf('Removing of %s with id %s is completed successfully',
-                $entityConfig['class'],
+                $entityClass,
                 $id
             );
 
