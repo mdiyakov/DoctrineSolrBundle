@@ -59,6 +59,8 @@ class EntityManager
                 $object = $em->getRepository(get_class($object))->find($object->getId());
                 if ($object) {
                     $this->indexProcessManager->reindex($object);
+                } else {
+                    $this->indexProcessManager->remove($object);
                 }
             }
         }
