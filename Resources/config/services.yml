@@ -92,6 +92,12 @@ services:
             - '@mdiyakov_doctrine_solr.config.config'
             - '@mdiyakov_doctrine_solr.query.suggester_builder'
 
+    mdiyakov_doctrine_solr.manager.entity_manager:
+        class: Mdiyakov\DoctrineSolrBundle\Manager\EntityManager
+        arguments:
+            - '@mdiyakov_doctrine_solr.manager.index_process_manager'
+            - '@doctrine'
+
     ds.suggester:
         alias: mdiyakov_doctrine_solr.manager.suggester
 
