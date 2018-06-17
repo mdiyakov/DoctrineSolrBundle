@@ -114,3 +114,4 @@ $searchResults = $finder->findSearchTermByFields($searchTerm, ['title']);
 6. [Suggestions](Resources/doc/suggestions.md)
 7. [Query building](Resources/doc/query_building.md)
 8. [Console command to index entities](Resources/doc/console.md)
+9. [EntityManager. How to flush an entity safe ](Resources/doc/entity_manager.md)
