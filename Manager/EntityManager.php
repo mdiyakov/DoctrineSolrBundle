@@ -30,20 +30,13 @@ class EntityManager
     }
 
     /**
-     * @param object $entity
-     * @throws \InvalidArgumentException
-     */
-    public function persist($entity)
-    {
-        $this->getEm($entity)->persist($entity);
-    }
-
-    /**
      * @param object[]|object $entity
-     * @throws \LogicException
+     * @throws \Doctrine\ORM\ORMException
      * @throws \InvalidArgumentException
+     * @throws \LogicException
+     * @throws \Exception
      */
-    public function flush($entity = null)
+    public function flush($entity)
     {
         if (!is_object($entity) && !is_array($entity)) {
             throw new \InvalidArgumentException('Entity must be an object or array of objects');
@@ -61,6 +54,7 @@ class EntityManager
             /** @var \Doctrine\ORM\EntityManager $em */
             $em = $this->getEm($object);
             try {
+                $em->persist($object);
                 $em->flush($object);
             } catch (\Exception $e) {
                 if (!$em->isOpen()) {
@@ -69,12 +63,14 @@ class EntityManager
                     );
                 }
 
-                $object = $em->getRepository(get_class($object))->find($object->getId());
-                if ($object) {
-                    $this->indexProcessManager->reindex($object);
+                $previousObject = $em->getRepository(get_class($object))->find($object->getId());
+                if ($previousObject) {
+                    $this->indexProcessManager->reindex($previousObject);
                 } else {
                     $this->indexProcessManager->remove($object);
                 }
+
+                throw $e;
             }
         }
     }

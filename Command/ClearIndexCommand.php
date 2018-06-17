@@ -2,7 +2,7 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Command;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityNotFoundException;
 use Mdiyakov\DoctrineSolrBundle\Config\Config;
 use Mdiyakov\DoctrineSolrBundle\Exception\EntityNotIndexedException;
@@ -31,25 +31,25 @@ class ClearIndexCommand extends Command
     private $updateQueryBuilder;
 
     /**
-     * @var EntityManager
+     * @var Registry
      */
-    private $em;
+    private $registry;
 
     /**
      * @param Config $config
      * @param UpdateQueryBuilder $updateQueryBuilder
-     * @param EntityManager $em
+     * @param Registry $registry
      */
     public function __construct(
         Config $config,
         UpdateQueryBuilder $updateQueryBuilder,
-        EntityManager $em
+        Registry $registry
     )
     {
         $this->config = $config;
         $this->possibleEntityTypes = array_keys($this->getAssocEntitiesClasses());
         $this->updateQueryBuilder = $updateQueryBuilder;
-        $this->em = $em;
+        $this->registry = $registry;
 
         parent::__construct();
     }
@@ -135,6 +135,7 @@ class ClearIndexCommand extends Command
         $schemaName = $entityConfig['schema'];
         $updateQuery = $this->updateQueryBuilder->buildUpdateQueryBySchemaName($schemaName);
         $schema = $this->config->getSchemaByName($schemaName);
+        $em = $this->registry->getManagerForClass($entityConfig['class']);
 
         if (empty($id)) {
             $discriminatorField = $schema->getDiscriminatorConfigField();
@@ -146,7 +147,7 @@ class ClearIndexCommand extends Command
             $message = sprintf('Removing of %s is completed successfully', $entityConfig['class']);
         } else {
             $entityClass = $entityConfig['class'];
-            $repository = $this->em->getRepository($entityClass);
+            $repository = $em->getRepository($entityClass);
             $entity = $repository->find($id);
 
             if (!$entity) {

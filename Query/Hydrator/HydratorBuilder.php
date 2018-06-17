@@ -2,15 +2,16 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Query\Hydrator;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Mdiyakov\DoctrineSolrBundle\Config\Config;
 
 class HydratorBuilder
 {
     /**
-     * @var EntityManager
+     * @var Registry
      */
-    private $em;
+    private $registry;
 
     /**
      * @var Config
@@ -18,23 +19,31 @@ class HydratorBuilder
     private $config;
 
     /**
-     * @param EntityManager $em
+     * @param Registry $registry
      * @param Config $config
      */
-    public function __construct(EntityManager $em, Config $config)
+    public function __construct(Registry $registry, Config $config)
     {
-        $this->em = $em;
+        $this->registry = $registry;
         $this->config = $config;
     }
 
     /**
      * @param string $entityClass
      * @return SelectQueryHydrator
+     * @throws \LogicException
      */
     public function buildSelectQueryHydratorByClass($entityClass)
     {
+        $em = $this->registry->getManagerForClass($entityClass);
+        if (!$em instanceof EntityManager) {
+            throw new \LogicException(
+                'EntityManager must be instance of \Doctrine\ORM\EntityManager'
+            );
+        }
+
         return new SelectQueryHydrator(
-            $this->em->getRepository($entityClass),
+            $em->getRepository($entityClass),
             $this->config->getSchemaByEntityClass($entityClass),
             $this->config->getEntityConfig($entityClass)
         );
