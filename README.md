@@ -1,8 +1,9 @@
 # DoctrineSolrBundle
-[![Build Status](https://travis-ci.org/mdiyakov/DoctrineSolrBundle.svg?branch=v1.1)](https://travis-ci.org/mdiyakov/DoctrineSolrBundle)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/18962102-252f-4e26-a990-37072d3061b7/small.png)](https://insight.sensiolabs.com/projects/18962102-252f-4e26-a990-37072d3061b7)
+[![Build Status](https://travis-ci.org/mdiyakov/DoctrineSolrBundle.svg?branch=master)](https://travis-ci.org/mdiyakov/DoctrineSolrBundle)
 [![Latest Stable Version](https://poser.pugx.org/mdiyakov/doctrine-solr-bundle/v/stable)](https://packagist.org/packages/mdiyakov/doctrine-solr-bundle)
 [![License](https://poser.pugx.org/mdiyakov/doctrine-solr-bundle/license)](https://packagist.org/packages/mdiyakov/doctrine-solr-bundle)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mdiyakov/DoctrineSolrBundle/badges/quality-score.png?b=v1.0)](https://scrutinizer-ci.com/g/mdiyakov/DoctrineSolrBundle/?branch=v1.0)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mdiyakov/DoctrineSolrBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mdiyakov/DoctrineSolrBundle/?branch=master)
 
 DoctrineSolrBundle is a Symfony bundle designed to mitigate Solr usage in symfony projects
 
@@ -115,3 +116,4 @@ $searchResults = $finder->findSearchTermByFields($searchTerm, ['title']);
 7. [Query building](Resources/doc/query_building.md)
 8. [Console command to index entities](Resources/doc/console.md)
 9. [EntityManager. How to flush an entity safe ](Resources/doc/entity_manager.md)
+10. [Roadmap](https://github.com/mdiyakov/DoctrineSolrBundle/wiki/Roadmap-for-April,-2018)
