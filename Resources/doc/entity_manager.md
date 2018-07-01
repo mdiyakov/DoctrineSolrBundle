@@ -30,4 +30,4 @@ In this case if any exception will be thrown (for example in entity listener cha
 * [Suggestions](suggestions.md)
 * [Query building](query_building.md)
 * [Console command to index entities](console.md)
-* [Console command to delete entities ](Resources/doc/console_delete.md)
+* [Console command to delete entities ](console_delete.md)

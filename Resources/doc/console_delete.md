@@ -1,4 +1,4 @@
-# Console command to index entities
+# Console command to delete entities
 
 **DoctrineSolrBundle** provides a console command for removing of entities. It can be useful if you need to remove a bunch entities of particular entity class.
 To run use the following command:
@@ -45,5 +45,5 @@ Beside this you can specify the "id" of particular enitity:
 * [Schema search over multiple entities classes](schema_search.md)
 * [Suggestions](suggestions.md)
 * [Query building](query_building.md)
-* [Console command to index entities](Resources/doc/console.md)
-* [EntityManager. How to flush an entity safe ](Resources/doc/entity_manager.md)
+* [Console command to index entities](console.md)
+* [EntityManager. How to flush an entity safe](entity_manager.md)

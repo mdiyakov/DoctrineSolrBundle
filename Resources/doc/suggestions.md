@@ -110,5 +110,5 @@ In this case all entity classes will be used not depending on "ContextFiltering"
 * [Schema search over multiple entities classes](schema_search.md)
 * [Query building](query_building.md)
 * [Console command to index entities](console.md)
-* [Console command to delete entities ](Resources/doc/console_delete.md)
-* [EntityManager. How to flush an entity safe ](Resources/doc/entity_manager.md)
+* [Console command to delete entities ](console_delete.md)
+* [EntityManager. How to flush an entity safe ](entity_manager.md)
