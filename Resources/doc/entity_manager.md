@@ -19,3 +19,15 @@ In this case if any exception will be thrown (for example in entity listener cha
 
 > Pay attention 'ds.entity_manager' doesn't have interface like \Doctrine\ORM\EntityManager. It has only "flush"" method with mandatory argument. 
 > Also you don't need to call 'persist' method
+
+
+## Pages
+* [Getting started with DoctrineSolrBundle](getting_started.md)
+* [ Regular, fuzzy, wildcard, range and negative search](fuzzy_wildcard_range_negative_search.md) 
+* [ Custom finder class ](custom_finder_class.md)
+* [ Filters ](filters.md)
+* [Schema search over multiple entities classes](schema_search.md)
+* [Suggestions](suggestions.md)
+* [Query building](query_building.md)
+* [Console command to index entities](console.md)
+* [Console command to delete entities ](Resources/doc/console_delete.md)

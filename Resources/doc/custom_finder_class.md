@@ -42,3 +42,5 @@ So PageFinder can be a collection of entity-specific searching methods like Doct
 * [Suggestions](suggestions.md)
 * [Query building](query_building.md)
 * [Console command to index entities](console.md)
+* [Console command to delete entities ](Resources/doc/console_delete.md)
+* [EntityManager. How to flush an entity safe ](Resources/doc/entity_manager.md)

@@ -137,3 +137,5 @@ For wildcard and fuzzy searches you also can use **"$splitPhrase = false"** in t
 * [Suggestions](suggestions.md)
 * [Query building](query_building.md)
 * [Console command to index entities](console.md)
+* [Console command to delete entities ](Resources/doc/console_delete.md)
+* [EntityManager. How to flush an entity safe ](Resources/doc/entity_manager.md)
