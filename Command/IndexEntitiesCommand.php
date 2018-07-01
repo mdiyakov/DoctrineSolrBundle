@@ -2,6 +2,7 @@
 
 namespace Mdiyakov\DoctrineSolrBundle\Command;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Console\Input\InputArgument;
@@ -17,9 +18,9 @@ class IndexEntitiesCommand extends Command
     const BUNCH_COUNT = 100;
 
     /**
-     * @var EntityManager
+     * @var Registry
      */
-    private $em;
+    private $registry;
 
     /**
      * @var Config
@@ -44,14 +45,14 @@ class IndexEntitiesCommand extends Command
     /**
      * @param Config $config
      * @param IndexProcessManager $indexProcessManager
-     * @param EntityManager $em
+     * @param Registry $registry
      */
-    public function __construct(Config $config, IndexProcessManager $indexProcessManager, EntityManager $em)
+    public function __construct(Config $config, IndexProcessManager $indexProcessManager, Registry $registry)
     {
         $this->config = $config;
         $this->indexProcessManager = $indexProcessManager;
         $this->possibleEntityTypes = array_keys($this->getAssocEntitiesClasses());
-        $this->em = $em;
+        $this->registry = $registry;
 
         parent::__construct();
     }
@@ -105,10 +106,16 @@ class IndexEntitiesCommand extends Command
      * @param string $entityClass
      * @param int|null $id
      * @throws \Exception
+     * @throws \LogicException
      */
     private function indexEntityClass($entityClass, $id = null)
     {
-        $repository = $this->em->getRepository($entityClass);
+        $em = $this->registry->getManagerForClass($entityClass);
+        if (!$em instanceof EntityManager) {
+            throw new \LogicException('EntityManager must be instance of EntityManager');
+        }
+
+        $repository = $em->getRepository($entityClass);
         if ($id) {
             $entity = $repository->find($id);
             if (!$entity) {
@@ -118,21 +125,23 @@ class IndexEntitiesCommand extends Command
             }
             $this->processEntity($entity);
         } else {
-            $this->processRepository($repository);
+            $this->processRepository($repository, $em);
         }
     }
 
     /**
      * @param EntityRepository $repository
+     * @param EntityManager $em
      */
-    private function processRepository(EntityRepository $repository)
+    private function processRepository(EntityRepository $repository, EntityManager $em)
     {
         $offset = 0;
         while ($entities = $repository->findBy([],['id'=> 'asc'], self::BUNCH_COUNT, $offset)) {
             foreach ($entities as $entity) {
                 $this->processEntity($entity);
             }
-            $this->em->clear($repository->getClassName());
+
+            $em->clear($repository->getClassName());
             $offset += self::BUNCH_COUNT;
         }
     }

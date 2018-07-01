@@ -132,3 +132,5 @@ You also can implement your own symfony service as a filter applicable for whole
 * [Suggestions](suggestions.md)
 * [Query building](query_building.md)
 * [Console command to index entities](console.md)
+* [Console command to delete entities ](console_delete.md)
+* [EntityManager. How to flush an entity safe ](entity_manager.md)

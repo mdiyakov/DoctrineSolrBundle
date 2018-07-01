@@ -119,7 +119,7 @@ class UpdateQuery
             throw new UpdateQueryException('Entity is not started. Call "beginEntity" method before add field value');
         }
 
-        $configEntityField = $this->schema->getConfigFieldName($configFieldName);
+        $configEntityField = $this->schema->getConfigFieldByName($configFieldName);
         $this->addFieldsConditions[$configEntityField->getDocumentFieldName()] = $value;
     }
 
@@ -158,6 +158,16 @@ class UpdateQuery
     public function addDeleteCriteriaByField($entityFieldName, $value)
     {
         $field = $this->schema->getFieldByEntityFieldName($entityFieldName);
+        $this->deleteConditions[$field->getDocumentFieldName()] = $value;
+    }
+
+    /**
+     * @param string $entityFieldName
+     * @param mixed $value
+     */
+    public function addDeleteCriteriaByConfigField($entityFieldName, $value)
+    {
+        $field = $this->schema->getConfigFieldByName($entityFieldName);
         $this->deleteConditions[$field->getDocumentFieldName()] = $value;
     }
 

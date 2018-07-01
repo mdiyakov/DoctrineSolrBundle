@@ -36,12 +36,21 @@ services:
         arguments:
             - '@mdiyakov_doctrine_solr.config.config'
 
-    mdiyakov_doctrine_solr.command.index_all_command:
+    mdiyakov_doctrine_solr.command.index_entities:
         class: Mdiyakov\DoctrineSolrBundle\Command\IndexEntitiesCommand
         arguments:
             - '@mdiyakov_doctrine_solr.config.config'
             - '@mdiyakov_doctrine_solr.manager.index_process_manager'
-            - '@doctrine.orm.default_entity_manager'
+            - '@doctrine'
+        tags:
+            - { name: console.command }
+
+    mdiyakov_doctrine_solr.command.clear_index:
+        class: Mdiyakov\DoctrineSolrBundle\Command\ClearIndexCommand
+        arguments:
+            - '@mdiyakov_doctrine_solr.config.config'
+            - '@mdiyakov_doctrine_solr.query.update_builder'
+            - '@doctrine'
         tags:
             - { name: console.command }
 
@@ -49,7 +58,7 @@ services:
         class: Mdiyakov\DoctrineSolrBundle\Query\Hydrator\HydratorBuilder
         public: false
         arguments:
-            - '@doctrine.orm.default_entity_manager'
+            - '@doctrine'
             - '@mdiyakov_doctrine_solr.config.config'
 
     mdiyakov_doctrine_solr.query.select_builder:
@@ -82,6 +91,15 @@ services:
         arguments:
             - '@mdiyakov_doctrine_solr.config.config'
             - '@mdiyakov_doctrine_solr.query.suggester_builder'
+
+    mdiyakov_doctrine_solr.manager.entity_manager:
+        class: Mdiyakov\DoctrineSolrBundle\Manager\EntityManager
+        arguments:
+            - '@mdiyakov_doctrine_solr.manager.index_process_manager'
+            - '@doctrine'
+
+    ds.entity_manager:
+        alias: mdiyakov_doctrine_solr.manager.entity_manager
 
     ds.suggester:
         alias: mdiyakov_doctrine_solr.manager.suggester

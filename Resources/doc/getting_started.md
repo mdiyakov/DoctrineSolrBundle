@@ -236,5 +236,5 @@ Beside this you can use default client defined in "nelmio_solarium" without any 
 * [Suggestions](suggestions.md)
 * [Query building](query_building.md)
 * [Console command to index entities](console.md)
-
-
+* [Console command to delete entities ](console_delete.md)
+* [EntityManager. How to flush an entity safe ](entity_manager.md)

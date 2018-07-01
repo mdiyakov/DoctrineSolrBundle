@@ -184,7 +184,7 @@ class Schema
      * @param $configFieldName
      * @return mixed
      */
-    public function getConfigFieldName($configFieldName)
+    public function getConfigFieldByName($configFieldName)
     {
         if (!array_key_exists($configFieldName, $this->configEntityFields)) {
             throw new SchemaConfigException(

@@ -55,3 +55,5 @@ Beside this you can specify the "id" of particular enitity:
 * [Schema search over multiple entities classes](schema_search.md)
 * [Suggestions](suggestions.md)
 * [Query building](query_building.md)
+* [Console command to delete entities ](console_delete.md)
+* [EntityManager. How to flush an entity safe ](entity_manager.md)

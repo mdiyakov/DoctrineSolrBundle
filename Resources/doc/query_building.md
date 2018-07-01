@@ -164,3 +164,5 @@ $suggestQuery = $this->get('mdiyakov_doctrine_solr.query.suggester_builder')->bu
 * [Schema search over multiple entities classes](schema_search.md)
 * [Suggestions](suggestions.md)
 * [Console command to index entities](console.md)
+* [Console command to delete entities ](console_delete.md)
+* [EntityManager. How to flush an entity safe ](entity_manager.md)

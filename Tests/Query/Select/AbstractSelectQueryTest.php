@@ -19,7 +19,7 @@ class AbstractSelectQueryTest extends \PHPUnit_Framework_TestCase
         $searchTerm = 'search';
 
         $schema->expects($this->any())
-            ->method('getConfigFieldName')
+            ->method('getConfigFieldByName')
             ->with($fieldName)
             ->will($this->returnValue($field));
         ;

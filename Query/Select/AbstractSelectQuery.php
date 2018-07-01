@@ -432,7 +432,7 @@ abstract class AbstractSelectQuery
         }
 
         if ($isConfigField) {
-            $field = $this->schema->getConfigFieldName($fieldName);
+            $field = $this->schema->getConfigFieldByName($fieldName);
         } else {
             $field = $this->getField($fieldName);
         }
