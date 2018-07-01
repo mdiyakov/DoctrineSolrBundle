@@ -30,7 +30,7 @@ class EntityManager
     }
 
     /**
-     * @param object[]|object $entity
+     * @param object $entity
      * @throws \Doctrine\ORM\ORMException
      * @throws \InvalidArgumentException
      * @throws \LogicException
@@ -38,45 +38,39 @@ class EntityManager
      */
     public function flush($entity)
     {
-        if (!is_object($entity) && !is_array($entity)) {
-            throw new \InvalidArgumentException('Entity must be an object or array of objects');
+        if (!is_object($entity)) {
+            throw new \InvalidArgumentException('Entity must be an object');
         }
 
-        if (!is_array($entity)) {
-            $entity = [$entity];
+        if (!method_exists($entity, 'getId')) {
+            throw new \LogicException('Entity must have method "getId" to handle rollback');
         }
 
-        foreach ($entity as $object) {
-            if (!method_exists($object, 'getId')) {
-                throw new \LogicException('Entity must have method "getId" to handle rollback');
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getEm($entity);
+        try {
+            $em->persist($entity);
+            $em->flush($entity);
+        } catch (\Exception $e) {
+            if (!$em->isOpen()) {
+                $em = $em->create(
+                    $em->getConnection(), $em->getConfiguration()
+                );
             }
 
-            /** @var \Doctrine\ORM\EntityManager $em */
-            $em = $this->getEm($object);
-            try {
-                $em->persist($object);
-                $em->flush($object);
-            } catch (\Exception $e) {
-                if (!$em->isOpen()) {
-                    $em = $em->create(
-                        $em->getConnection(), $em->getConfiguration()
-                    );
-                }
-
-                $previousObject = $em->getRepository(get_class($object))->find($object->getId());
-                if ($previousObject) {
-                    $this->indexProcessManager->reindex($previousObject);
-                } else {
-                    $this->indexProcessManager->remove($object);
-                }
-
-                throw $e;
+            $previousEntity = $em->getRepository(get_class($entity))->find($entity->getId());
+            if ($previousEntity) {
+                $this->indexProcessManager->reindex($previousEntity);
+            } else {
+                $this->indexProcessManager->remove($entity);
             }
+
+            throw $e;
         }
     }
 
     /**
-     * @param $entity
+     * @param object $entity
      * @throws \InvalidArgumentException
      * @return EntityManagerInterface
      */
